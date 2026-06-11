@@ -1,0 +1,3336 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Akash CELPIP Exam Practice</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;family=Instrument+Serif:ital@0;1&amp;display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#FAFAF9; --surface:#FFFFFF; --surface-2:#F1F2F1;
+  --ink:#16181D; --ink-2:#5A6068; --line:rgba(22,24,29,.09);
+  --accent:#2D5BFF; --accent-soft:#EBF0FF;
+  --good:#0E8A5F; --good-soft:#E4F4ED; --bad:#C92A3D; --bad-soft:#FBE9EC;
+  --radius:18px;
+  --shadow:0 1px 2px rgba(22,24,29,.05),0 8px 28px rgba(22,24,29,.07);
+  --ease:cubic-bezier(.22,.61,.21,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Geist',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:880px;margin:0 auto;padding:0 20px}
+.exam-view .wrap{max-width:100%;padding:0 10px}
+.serif{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400}
+button{font-family:inherit}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+/* Nav */
+nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav-inner{display:flex;align-items:center;gap:6px;height:58px;overflow-x:auto;scrollbar-width:none}
+.nav-inner::-webkit-scrollbar{display:none}
+.logo{display:flex;align-items:center;gap:8px;font-weight:600;font-size:.98rem;margin-right:14px;white-space:nowrap;cursor:pointer;background:none;border:none;color:var(--ink)}
+.logo .mark{width:20px;height:20px;border-radius:6px;background:linear-gradient(135deg,var(--accent),#7B9BFF);position:relative;flex:0 0 20px}
+.logo .mark::after{content:"";position:absolute;inset:0;margin:auto;width:5px;height:5px;background:#fff;border-radius:50%}
+.tab{border:none;background:none;font-size:.86rem;font-weight:500;color:var(--ink-2);padding:8px 13px;border-radius:99px;cursor:pointer;white-space:nowrap;transition:background .25s,color .25s}
+.tab:hover{color:var(--ink)}
+.tab.on{background:var(--ink);color:var(--bg)}
+
+/* Views */
+.view{display:none;padding:40px 0 90px;animation:fade .5s var(--ease)}
+.view.exam-view{padding:8px 0 0}
+.view.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+.eyebrow{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:10px}
+h1{font-size:clamp(1.9rem,5.5vw,2.7rem);font-weight:700;letter-spacing:-.03em;line-height:1.1;margin-bottom:12px}
+.lead{color:var(--ink-2);font-size:1.02rem;max-width:54ch;margin-bottom:30px}
+h2{font-size:1.3rem;font-weight:600;letter-spacing:-.015em;margin-bottom:6px}
+.sub{color:var(--ink-2);font-size:.92rem;margin-bottom:18px}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:26px 22px;box-shadow:var(--shadow);margin-bottom:18px}
+.btn{display:inline-block;text-decoration:none;font-weight:600;font-size:.93rem;padding:12px 24px;border-radius:99px;border:none;cursor:pointer;transition:transform .2s var(--ease),box-shadow .2s var(--ease)}
+.btn:active{transform:scale(.97)}
+.btn-accent{background:var(--accent);color:#fff}
+.btn-accent:hover{box-shadow:0 8px 22px color-mix(in srgb,var(--accent) 35%,transparent)}
+.btn-ghost{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+.btn-ghost:hover{background:var(--surface-2)}
+.btn-sm{padding:8px 16px;font-size:.85rem}
+.btn:disabled{opacity:.45;cursor:default;box-shadow:none}
+
+/* Home skill grid */
+.skill-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:8px}
+@media(max-width:620px){.skill-grid{grid-template-columns:1fr}}
+.skill{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px 22px;cursor:pointer;text-align:left;transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.skill:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.skill .ico{width:40px;height:40px;border-radius:12px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:1.05rem;margin-bottom:14px}
+.skill h3{font-size:1.04rem;font-weight:600;margin-bottom:5px}
+.skill p{font-size:.87rem;color:var(--ink-2)}
+.mock-banner{background:var(--ink);color:var(--bg);border-radius:var(--radius);padding:28px 24px;margin-top:18px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+.mock-banner h3{font-size:1.15rem;font-weight:600}
+.mock-banner p{font-size:.88rem;opacity:.65}
+
+/* Quiz */
+.passage{background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:20px 18px;font-size:.95rem;margin-bottom:22px}
+.passage p{margin-bottom:12px}
+.passage p:last-child{margin-bottom:0}
+.q{margin-bottom:24px}
+.q .qt{font-weight:600;font-size:.97rem;margin-bottom:11px}
+.opt{display:block;width:100%;text-align:left;font-size:.92rem;background:var(--bg);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:8px;cursor:pointer;font-weight:500;color:var(--ink);transition:border-color .2s,background .2s}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+.opt.correct{border-color:var(--good);background:var(--good-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt:disabled{cursor:default}
+.result-box{border-radius:14px;padding:20px;text-align:center;margin-top:8px}
+.result-box .big{font-size:2.2rem;font-weight:700;letter-spacing:-.02em}
+.result-box .band{font-family:'Instrument Serif',serif;font-style:italic;font-size:1.2rem;color:var(--accent)}
+.result-box p{font-size:.88rem;color:var(--ink-2);margin-top:6px}
+.note{font-size:.8rem;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-top:14px}
+
+/* Audio player */
+.player{display:flex;align-items:center;gap:14px;background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:20px;flex-wrap:wrap}
+.play-btn{width:52px;height:52px;border-radius:50%;background:var(--accent);color:#fff;border:none;font-size:1.15rem;cursor:pointer;flex:0 0 52px;transition:transform .2s}
+.play-btn:active{transform:scale(.94)}
+.player .pmeta b{font-size:.92rem;display:block}
+.player .pmeta small{font-size:.78rem;color:var(--ink-2)}
+.transcript{display:none;margin-top:14px}
+.transcript.open{display:block}
+
+/* Writing */
+.timer-chip{display:inline-flex;align-items:center;gap:8px;font-variant-numeric:tabular-nums;font-weight:600;font-size:.92rem;background:var(--surface-2);border:1px solid var(--line);border-radius:99px;padding:8px 16px}
+.timer-chip.warn{color:var(--bad);border-color:var(--bad)}
+textarea{width:100%;min-height:280px;font-family:inherit;font-size:.96rem;line-height:1.7;background:var(--bg);border:1.5px solid var(--line);border-radius:14px;padding:16px;color:var(--ink);resize:vertical;margin:14px 0 10px}
+textarea:focus{outline:none;border-color:var(--accent)}
+.wc{font-size:.84rem;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.wc b{color:var(--ink)}
+.check{display:flex;gap:11px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line);font-size:.9rem}
+.check:last-child{border-bottom:none}
+.check .ci{flex:0 0 22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#fff;margin-top:2px}
+.check.ok .ci{background:var(--good)}
+.check.no .ci{background:var(--bad)}
+.check small{display:block;color:var(--ink-2);font-size:.82rem}
+
+/* Speaking */
+.task-pick{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.task-pick button{font-size:.82rem;font-weight:600;border:1.5px solid var(--line);background:var(--surface);color:var(--ink-2);border-radius:99px;padding:8px 14px;cursor:pointer;transition:border-color .2s,color .2s}
+.task-pick button.on{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.big-timer{font-size:3rem;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums;text-align:center;margin:8px 0 4px}
+.phase-label{text-align:center;font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.center{text-align:center}
+.rec-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--bad);margin-right:7px;animation:pulse 1.2s infinite}
+@keyframes pulse{50%{opacity:.25}}
+
+/* Mock */
+.progress-track{height:6px;border-radius:99px;background:var(--line);overflow:hidden;margin:18px 0 26px}
+.progress-track i{display:block;height:100%;background:var(--accent);border-radius:99px;width:0;transition:width .6s var(--ease)}
+.mock-stage{display:none}
+.mock-stage.on{display:block;animation:fade .5s var(--ease)}
+.band-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:22px 0}
+@media(max-width:560px){.band-grid{grid-template-columns:1fr}}
+.band-cell{background:var(--surface-2);border:1px solid var(--line);border-radius:14px;padding:18px;text-align:center}
+.band-cell b{font-size:1.5rem;font-weight:700;display:block;letter-spacing:-.02em}
+.band-cell span{font-size:.8rem;color:var(--ink-2)}
+
+/* Scoreboard */
+.scorebar{cursor:pointer;user-select:none}
+.sb-head{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.sb-num{font-size:2.4rem;font-weight:700;letter-spacing:-.03em;line-height:1}
+.sb-num small{font-size:1rem;font-weight:500;color:var(--ink-2)}
+.sb-meta{flex:1;min-width:180px}
+.sb-meta b{font-size:.92rem;display:block;margin-bottom:8px}
+.segbar{display:flex;gap:3px}
+.segbar i{flex:1;height:9px;border-radius:3px;background:var(--line);transition:background .5s var(--ease)}
+.segbar i.fill{background:var(--accent)}
+.segbar i.half{background:color-mix(in srgb,var(--accent) 45%,var(--line))}
+.sb-chev{font-size:1.1rem;color:var(--ink-2);transition:transform .3s var(--ease)}
+.scorebar.open .sb-chev{transform:rotate(180deg)}
+.sb-detail{display:none;margin-top:22px;border-top:1px solid var(--line);padding-top:6px}
+.scorebar.open .sb-detail{display:block;animation:fade .4s var(--ease)}
+.sb-row{display:flex;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--line)}
+.sb-row:last-of-type{border-bottom:none}
+.sb-row .sname{flex:0 0 92px;font-size:.88rem;font-weight:600}
+.sb-row .segbar{flex:1}
+.sb-row .sval{flex:0 0 78px;text-align:right;font-size:.86rem;font-variant-numeric:tabular-nums}
+.sb-row .sval b{font-size:1rem}
+.sb-row .sval small{color:var(--ink-2);display:block;font-size:.72rem}
+.sb-reset{font-size:.78rem;color:var(--ink-2);background:none;border:none;cursor:pointer;text-decoration:underline;margin-top:12px}
+.rate-row{margin-top:16px;text-align:center}
+.rate-row p{font-size:.86rem;font-weight:600;margin-bottom:10px}
+.rate-row button{font-size:.9rem;font-weight:700;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line);background:var(--surface);cursor:pointer;margin:0 4px;transition:border-color .2s,background .2s}
+.rate-row button:hover{border-color:var(--accent);background:var(--accent-soft)}
+
+footer{border-top:1px solid var(--line);padding:30px 0 40px;text-align:center;font-size:.78rem;color:var(--ink-2)}
+.btn:focus-visible,button:focus-visible,a:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+
+
+/* Exam simulator redesign */
+:root{--bg:#F4F6F8;--surface-2:#EEF2F6;--accent:#0A6FB7;--accent-soft:#E6F2FB;--radius:8px;--shadow:none}
+.wrap{max-width:1120px}
+nav{background:#fff;border-bottom:1px solid #D8DEE6;backdrop-filter:none;-webkit-backdrop-filter:none}
+.logo .mark{border-radius:4px;background:var(--accent)}
+.tab{border-radius:6px}.tab.on{background:var(--accent);color:#fff}
+.view{padding:28px 0 80px}.card{border-color:#D8DEE6;border-radius:8px;box-shadow:none}.btn{border-radius:6px}.skill{border-color:#D8DEE6;border-radius:8px}.skill:hover{transform:none;box-shadow:none}.skill .ico{border-radius:6px;background:#E6F2FB;font-weight:700;color:var(--accent)}
+.mock-banner{background:#102A43;color:#fff;border-radius:8px}.passage{background:#fff;border:1px solid #D8DEE6;border-radius:6px}.opt{background:#fff;border-color:#CED6E0;border-radius:6px}.player{background:#fff;border-color:#D8DEE6;border-radius:6px}.play-btn{border-radius:6px}textarea{background:#fff;border-color:#CED6E0;border-radius:6px;min-height:360px}
+.exam-head{display:flex;align-items:center;justify-content:space-between;gap:14px;background:#fff;border:1px solid #D8DEE6;border-radius:8px 8px 0 0;padding:14px 18px;margin-top:8px;font-size:.95rem}
+.exam-head strong{font-size:1rem;font-weight:700}.exam-head span{font-variant-numeric:tabular-nums;color:var(--bad);font-weight:700;white-space:nowrap}
+.exam-shell{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:0;border-top:0;border-radius:0 0 8px 8px;overflow:hidden;height:calc(100vh - 130px)}.exam-panel{padding:22px;background:#fff;min-width:0;overflow-y:auto;height:100%}.exam-panel:first-child{border-right:1px solid #D8DEE6;background:#FAFBFC}.exam-panel h2{font-size:1.05rem;margin-bottom:14px;letter-spacing:0}.exam-panel .passage{border:0;background:transparent;padding:0;margin:0}.exam-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid #D8DEE6;padding-top:16px;margin-top:12px}.exam-mini{font-size:.82rem;color:var(--ink-2)}
+.exam-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0}.exam-kpis div{background:#fff;border:1px solid #D8DEE6;border-radius:8px;padding:14px;text-align:center}.exam-kpis b{display:block;font-size:1.35rem;line-height:1.1;color:var(--accent)}.exam-kpis span{font-size:.76rem;color:var(--ink-2)}
+@media(max-width:760px){.exam-shell{grid-template-columns:1fr}.exam-panel:first-child{border-right:0;border-bottom:1px solid #D8DEE6}.exam-head{align-items:flex-start;flex-direction:column}.exam-kpis{grid-template-columns:repeat(2,1fr)}}
+
+
+
+/* Closer CELPIP sample-test frame */
+body{background:#f3f3f0;background-image:repeating-linear-gradient(135deg,rgba(0,0,0,.018) 0,rgba(0,0,0,.018) 1px,transparent 1px,transparent 4px)}
+nav{height:76px}.nav-inner{height:76px;max-width:none}.logo{font-size:1.6rem;letter-spacing:.08em}.logo .mark{width:18px;height:18px}.tab{border-radius:0;color:#1f2b3a}.tab.on{background:#071024;color:#fff}
+.view{padding:26px 0 54px}.view>.wrap{max-width:982px;padding:0}.exam-head{height:43px;background:#d9dce2;border:1px solid #bfc4cb;border-radius:0;margin:0;padding:0 20px;color:#414953}.exam-head strong{font-size:1rem}.exam-head span{color:#111;font-weight:500}.exam-head .danger{color:#d40000;font-weight:700}.exam-shell{border:1px solid #bfc4cb;border-top:0;border-radius:0;min-height:720px;background:#eaf7f8;grid-template-columns:1fr 1fr}.exam-panel{height:720px;overflow:auto;padding:20px;background:#eaf7f8}.exam-panel:first-child{background:#fff;border-right:1px solid #bfc4cb}.exam-panel h2{color:#004f89;font-weight:700;font-size:1.02rem}.exam-panel h2::before{content:'i';display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#557fa8;color:#fff;font-size:.72rem;margin-right:8px}.exam-panel .passage{font-size:.94rem;line-height:1.55}.q{border-bottom:1px dotted #b9c3c8;padding:8px 0 14px;margin-bottom:8px}.q .qt{color:#1f3342;font-weight:500}.opt{border:0;border-radius:0;border-bottom:1px dotted #b9c3c8;background:transparent;padding:8px 10px}.opt::before{content:'○ ';color:#6a7380}.opt.sel{background:#fff;border:1px solid #65bdca}.opt.sel::before{content:'● ';color:#006fc9}.opt.correct,.opt.wrong{border:1px solid currentColor}.exam-actions{background:#d9dce2;border:1px solid #bfc4cb;border-top:0;margin:0;padding:10px 20px;min-height:54px;position:sticky;bottom:0;z-index:5}.btn-accent,.btn-ghost{background:linear-gradient(#0089ec,#0054b8);color:#fff;border:1px solid #004994;border-radius:0;padding:6px 16px;font-size:.82rem;text-transform:uppercase;box-shadow:inset 0 1px rgba(255,255,255,.35)}.btn-ghost:hover,.btn-accent:hover{background:linear-gradient(#087fe0,#004ca8)}.btn:disabled{opacity:.45}.exam-mini{color:#1f3342}.question-nav{display:flex;align-items:center;gap:7px;flex-wrap:wrap}.qdot{width:28px;height:28px;border-radius:50%;border:1px solid #9ea7b1;background:#eef1f4;color:#314151;font-weight:700;font-size:.82rem;display:inline-flex;align-items:center;justify-content:center;cursor:pointer}.qdot.pending{background:#f4f4f4;color:#777}.qdot.answered{background:#0b75bd;color:#fff;border-color:#075a94}.qdot.review{box-shadow:0 0 0 3px #ffe08a inset}.qdot.missing{background:#fff4f4;border-color:#d40000;color:#d40000}.exam-toast{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;align-items:flex-start;justify-content:center;padding-top:180px;z-index:500}.exam-toast.open{display:flex}.exam-dialog{width:min(560px,92vw);background:#fff;border-radius:6px;box-shadow:0 8px 30px rgba(0,0,0,.35);overflow:hidden}.exam-dialog p{padding:18px 16px;color:#59616b}.exam-dialog div{border-top:1px solid #ddd;padding:14px;display:flex;justify-content:flex-end;gap:10px}.timer-chip{border-radius:0;background:#fff}.player{justify-content:center;min-height:105px;background:#d9dde3;border:0}.play-btn{width:64px;height:64px;background:#f3f5f7;color:#777}.transcript{max-height:260px;overflow:auto}.scorebar,.skill,.mock-banner{border-radius:0}.skill .ico{border-radius:0}.result-box{border-radius:0}.check .ci{border-radius:0}
+@media(max-width:760px){.view>.wrap{padding:0 10px}.exam-shell{grid-template-columns:1fr}.exam-panel{height:auto;max-height:560px}.exam-head{height:auto;min-height:43px;align-items:flex-start}.exam-actions{align-items:flex-start;flex-direction:column}.question-nav{max-width:100%}}
+#v-reading .wrap,#v-listening .wrap,#v-writing .wrap{max-width:1080px}
+#v-reading .exam-shell{grid-template-columns:46% 54%;background:#eaf7f8}
+#v-reading .exam-panel{height:760px}
+#v-reading .exam-panel:nth-child(2){padding:16px 18px 22px;background:#eefafc}
+#v-reading .exam-panel .passage{font-size:1rem;line-height:1.62}
+#v-reading #readQs{padding-top:4px}
+#v-reading .q{padding:14px 0 16px;margin-bottom:8px;border-bottom:1px solid #ced9de}
+#v-reading .q .qt{color:#214e73;font-size:1.06rem;font-weight:700;line-height:1.4;margin-bottom:8px}
+#v-reading .opt{display:block;width:100%;text-align:left;font-size:1rem;line-height:1.45;padding:11px 12px;background:transparent;border:0;border-bottom:1px solid #d8e2e7}
+#v-reading .opt:hover{background:#fff}
+#v-reading .opt.sel{background:#fff;border:1px solid #7ec5d4}
+#v-reading .exam-actions{justify-content:flex-end}
+#v-reading .question-nav{display:flex}
+#v-reading #readTimer{font-weight:600;color:#4e5964}
+#v-listening .exam-shell,#v-writing .exam-shell{grid-template-columns:50% 50%}
+#v-listening .exam-panel,#v-writing .exam-panel{height:740px}
+#v-listening .q .qt,#v-listening .opt,#v-writing .passage{font-size:1rem}
+#v-writing textarea{min-height:430px;font-size:1rem;line-height:1.55}
+@media(max-width:760px){#v-reading .exam-shell,#v-listening .exam-shell,#v-writing .exam-shell{grid-template-columns:1fr}#v-reading .question-nav{display:flex}}
+#v-listening .question-nav{display:none}
+#v-reading .exam-panel:nth-child(2),#v-listening .exam-panel:nth-child(2){background:#eefafc}
+#v-writing .exam-shell{grid-template-columns:34% 66%;background:#eaf7f8}
+#v-writing .exam-panel{height:790px}
+#v-writing .exam-panel:nth-child(2){background:#eefafc;padding:16px 18px 24px}
+#v-writing textarea{min-height:590px;font-size:1rem;line-height:1.6;border-radius:4px;border:1px solid #9fc7d8;background:#fff}
+.inline-question{display:grid;grid-template-columns:minmax(0,1fr) 180px;gap:12px;align-items:center}
+.inline-question .qt{margin:0!important}
+.blank-select{width:180px;height:34px;border:1px solid #7cb7cf;background:#fff;color:#1f3342;padding:4px 10px;font-size:.95rem;border-radius:2px}
+.blank-select.blank{color:#8a97a3}
+.opt-store{display:none}
+.speak-display-prefs{display:flex;gap:8px;justify-content:center;align-items:center;margin:8px 0 14px;flex-wrap:wrap}
+.pref-btn{border:1px solid #9ea7b1;background:#eef1f4;color:#314151;padding:6px 12px;font-size:.85rem;text-transform:uppercase;border-radius:4px;cursor:pointer}
+.pref-btn.on{background:#0b75bd;color:#fff;border-color:#075a94}
+.speak-bar-wrap{width:min(540px,92%);margin:10px auto 6px;height:16px;border:1px solid #8eb8ce;background:#ffffff;box-shadow:inset 0 1px 2px rgba(0,0,0,.08)}
+.speak-bar{height:100%;width:0%;background:linear-gradient(90deg,#31b9ff,#0a76bf)}
+.speak-bar-label{font-size:.82rem;color:#54606b;text-align:center;margin-bottom:8px}
+.speaking-bar-mode{font-size:0!important;color:transparent!important;line-height:0!important;min-height:28px}
+@media(max-width:760px){#v-listening .question-nav{display:flex}#v-writing .exam-shell{grid-template-columns:1fr}.inline-question{grid-template-columns:1fr}.blank-select{width:100%}}
+#v-reading .question-nav{display:flex!important;gap:8px;align-items:center;flex-wrap:nowrap}
+#v-reading .exam-actions{display:flex;justify-content:space-between;align-items:center;gap:14px;position:sticky;bottom:0}
+#v-reading #readNav{padding:0;margin:0}
+#v-reading .qdot{width:32px;height:32px;border-radius:50%;border:1px solid #b7bdc6;background:linear-gradient(#fbfbfb,#ececec);color:#6b7380;font-size:.9rem;box-shadow:inset 0 1px rgba(255,255,255,.9)}
+#v-reading .qdot.answered{background:linear-gradient(#ffffff,#edf7ff);color:#0b75bd;border-color:#8eb3d6}
+#v-reading .qdot.pending{background:linear-gradient(#fbfbfb,#ececec);color:#666}
+#v-reading .qdot.missing{background:#fff4f4;border-color:#d40000;color:#d40000}
+#v-reading #readSubmit{min-width:170px}
+#v-reading .opt{display:block!important}
+#v-listening .question-nav{display:flex;gap:8px}
+#v-speaking .center{gap:10px;flex-wrap:wrap}
+#speakSkip{display:inline-flex}
+.speak-bar-wrap{width:min(540px,92%);margin:10px auto 8px;height:16px;border:1px solid #8eb8ce;background:#fff;box-shadow:inset 0 1px 2px rgba(0,0,0,.08);display:none}
+.speak-bar{height:100%;width:0%;background:linear-gradient(90deg,#2fc3ff,#0a76bf)}
+.speaking-bar-mode{font-size:0!important;color:transparent!important;line-height:0!important;min-height:32px}
+
+
+
+
+.isel{display:inline-block;min-width:130px;padding:3px 28px 3px 8px;border:1.5px solid #0b75bd;border-radius:4px;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%230b75bd'/%3E%3C/svg%3E") no-repeat right 8px center;background-size:10px;font-family:inherit;font-size:.92rem;color:#16181D;cursor:pointer;vertical-align:middle;appearance:none;-webkit-appearance:none}
+.rp-stmt{display:flex;align-items:baseline;gap:10px;padding:9px 0;border-bottom:1px solid #eee;font-size:.93rem}
+.diag-table{width:100%;border-collapse:collapse;font-size:.88rem}
+.exam-info{display:flex;align-items:flex-start;gap:8px;background:#e8f0fe;border-radius:6px;padding:11px 13px;font-size:.9rem;margin-bottom:16px;line-height:1.45}
+.ak-btn{background:none;border:1px solid #9ea7b1;border-radius:4px;padding:7px 14px;font-size:.85rem;font-weight:600;cursor:pointer;color:#314151;font-family:inherit}
+.exam-bottom{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:#f8f9fa;border-top:1px solid #D8DEE6;border-radius:0 0 8px 8px;margin-top:0}
+</style>
+</head>
+<body>
+<nav>
+<div class="wrap nav-inner">
+<button class="logo" data-go="home"><span class="mark"></span>Akash CELPIP</button>
+<button class="tab on" data-go="home">Home</button>
+<button class="tab" data-go="reading">Reading</button>
+<button class="tab" data-go="listening">Listening</button>
+<button class="tab" data-go="writing">Writing</button>
+<button class="tab" data-go="speaking">Speaking</button>
+<button class="tab" data-go="mock">Mock Test</button>
+<button class="tab" data-go="results" id="resultsTab" style="display:none">📊 Results</button>
+</div>
+</nav>
+<!-- ============ HOME ============ -->
+<div class="view on" id="v-home">
+<div class="wrap">
+<span class="eyebrow">CELPIP-General exam simulator</span>
+<h1>Practice in a screen that feels closer to the real test.</h1>
+<p class="lead">Plain exam-style layouts, timers, one-play listening, writing boxes, and focused review. Practice scores are guides only, not official CELPIP results.</p>
+<div class="exam-kpis">
+<div><b>46-55</b><span>Listening min</span></div>
+<div><b>43-56</b><span>Reading min</span></div>
+<div><b>53</b><span>Writing min</span></div>
+<div><b>15</b><span>Speaking min</span></div>
+</div>
+<div aria-label="Your score summary - tap to expand" class="card scorebar" id="scorebar" role="button" tabindex="0">
+<div class="sb-head">
+<div class="sb-num" id="sbOverall">-<small> / 12</small></div>
+<div class="sb-meta">
+<b id="sbLabel">Your practice band</b>
+<div class="segbar" id="sbBar"></div>
+</div>
+<span class="sb-chev">v</span>
+</div>
+<div class="sb-detail" id="sbDetail"></div>
+</div>
+<div class="skill-grid">
+<button class="skill" data-go="reading"><div class="ico">R</div><h3>Reading</h3><p>Two-panel correspondence practice with passage on the left and questions on the right.</p></button>
+<button class="skill" data-go="listening"><div class="ico">L</div><h3>Listening</h3><p>One-play listening practice with the transcript locked until after submission.</p></button>
+<button class="skill" data-go="writing"><div class="ico">W</div><h3>Writing</h3><p>Task 1 email practice with a 27-minute section timer and live word count.</p></button>
+<button class="skill" data-go="speaking"><div class="ico">S</div><h3>Speaking</h3><p>All 8 speaking task types with preparation and response timers.</p></button>
+</div>
+<div class="mock-banner">
+<div><h3>Mini Mock Test</h3><p>Listening, Reading, Writing, Speaking - timed like a compact exam simulator.</p></div>
+<button class="btn btn-accent" data-go="mock">Start mock test</button>
+</div>
+<p class="note">Akash CELPIP Practice is independent. Tasks are original and written in a CELPIP-style format. Not affiliated with Paragon Testing Enterprises. Practice scores are approximate and not official CELPIP results.</p>
+</div>
+</div>
+<!-- ============ READING ============ -->
+<div class="view exam-view" id="v-reading">
+<div id="readingHomeRow" style="padding:12px 10px 0">
+<button class="btn btn-ghost btn-sm" onclick="document.querySelectorAll('.view').forEach(function(v){v.classList.remove('on');}); var h=document.getElementById('v-home'); if(h) h.classList.add('on'); window.scrollTo({top:0});">← Back to Home</button>
+</div>
+<div class="wrap">
+<!-- ── PART NAVIGATION ── -->
+<div id="readPartNav" style="display:flex;gap:8px;margin-bottom:0;flex-wrap:wrap">
+<button class="btn btn-accent btn-sm rp-btn on" data-part="rp1">Part 1</button>
+<button class="btn btn-ghost btn-sm rp-btn" data-part="rp2">Part 2</button>
+<button class="btn btn-ghost btn-sm rp-btn" data-part="rp3">Part 3</button>
+<button class="btn btn-ghost btn-sm rp-btn" data-part="rp4">Part 4</button>
+</div>
+<!-- ═══════ PART 1 ═══════ -->
+<div class="read-part" id="rp1">
+<div class="exam-head">
+<strong>Practice Test A — Reading Part 1: Reading Correspondence</strong>
+<span data-minutes="9" id="readTimer">Time remaining: 9:00</span>
+<button class="btn btn-accent" data-rp-goto="rp2">NEXT</button>
+</div>
+<div class="card exam-shell">
+<section class="exam-panel">
+<div class="exam-info"><span class="ii">i</span><span>Read the following message.</span></div>
+<div class="passage" style="font-size:.9rem">
+<p><b>Hi Mea,</b></p>
+<p>I'm sorry for taking so long to reply to your email. As you know, I've been very busy this summer with Marco's university graduation and my family's visit from Chile. The graduation ceremony was great! Too bad you guys couldn't make it, but we understand it's a bit of a drive from Calgary. You were truly missed. My Mum remembers you well from when we were kids. After the celebrations, we took the family sightseeing here in Vancouver. They loved it! They left yesterday for Victoria, and will catch a plane back home from there in three days.</p>
+<p>Just when we thought things would slow down, Marco broke the news that he had accepted a job offer in Tokyo. He leaves at the end of the month! He was invited to work at a top engineering firm that specializes in rebuilding cities after large disasters. Needless to say Marco is very excited about it. The firm has been really active in the reconstruction efforts following the 2011 earthquake in Japan, and it's a first step into his career, not to mention the opportunity to experience a new culture, and learn a new language. He's a little apprehensive about communicating in Japanese but the firm has a translator and a tutor to help him.</p>
+<p>Marco is over the moon, but Jack and I are having a tougher time with it. We think he's so young to be so far away, but we know it's for the best. Just the other day Jack and I were talking about that trip all of us took to Disneyland when the kids were little, do you remember that? It's been 20 years! Time flies, doesn't it?</p>
+<p>In any event, we are planning a farewell party for friends next weekend, and Marco cannot imagine not having you, Jason and Cindy there. It's at his apartment. He really does not want to leave without saying goodbye to all of you. We hope you can make it — it's been too long!</p>
+<p>Let us know!</p>
+<p><em>Maria</em></p>
+</div>
+</section>
+<section class="exam-panel">
+<div class="exam-info"><span class="ii">i</span><span>Using the drop-down menu, choose the <b>best</b> option according to the information given in the message.</span></div>
+<div id="readQs"></div>
+<div id="readResult" style="display:none"></div>
+</section>
+</div>
+<div class="exam-bottom">
+<button class="ak-btn ak-reveal-btn" onclick="document.getElementById('rp1ak').classList.toggle('open')" style="display:none">Answer Key</button>
+</div>
+<div class="ak-panel" id="rp1ak"><ol><li>in Vancouver.</li><li>going to Tokyo.</li><li>excited but a little nervous.</li><li>working in Japan.</li><li>Marco leaving for Tokyo.</li><li>are old friends.</li></ol></div>
+</div>
+<!-- ═══════ PART 2 ═══════ -->
+<div class="read-part" id="rp2" style="display:none">
+<div class="exam-head">
+<strong>Practice Test A — Reading Part 2: Reading to Apply a Diagram</strong>
+<span data-minutes="7" id="rp2Timer">Time remaining: 7:00</span>
+<button class="btn btn-accent" data-rp-goto="rp3">NEXT</button>
+</div>
+<div class="card exam-shell">
+<section class="exam-panel">
+<div class="exam-info"><span class="ii">i</span><span>Read the following information.</span></div>
+<table class="diag-table">
+<thead><tr><th>Transport</th><th>Amenities</th><th>Price &amp; Duration</th></tr></thead>
+<tbody>
+<tr><td>Train</td><td>free wi-fi &amp; internet<br/>café car<br/>scenic route</td><td>Price: $85 return<br/>Duration: 2 hr 15 min</td></tr>
+<tr><td>Bus</td><td>no checked baggage allowed<br/>no washrooms, no stops<br/>only morning trips to Seattle</td><td>Price: $100 return<br/>Duration: 3 hr 30 min</td></tr>
+<tr><td>Plane</td><td>in-flight snack<br/>free movie entertainment<br/>airport close to town</td><td>Price: $240 return<br/>Duration: 45 min</td></tr>
+<tr><td>Car</td><td>freedom to explore the city<br/>no need to pay for cabs to and from hotel</td><td>Price: $180 (90/each) for gas<br/>Duration: 4 hours</td></tr>
+</tbody>
+</table>
+</section>
+<section class="exam-panel">
+<div class="exam-info"><span class="ii">i</span><span>Read the following email message about the diagram on the left. Complete the email by filling in the blanks. Select the <b>best</b> choice for each blank from the drop-down menu.</span></div>
+<div class="rp-fill">
+<p><b>Subject:</b> Seattle conference presentation<br/><b>To:</b> Janice Wong &lt;jwong@ubc.ca&gt;<br/><b>From:</b> Peter Kull &lt;pkull@ubc.ca&gt;</p>
+<p>Hi Janice,</p>
+<p>You will find attached our presentation file. It's ready! I've also done some research on travel. Remember, the conference is a week away and we haven't decided how to get there yet. Here are our options. Buses are the
+            <select class="isel" data-ans="0" id="rp2q1"><option value="">▾</option><option>most desirable</option><option>most flexible</option><option>least comfortable</option><option>least effective</option></select>
+            because the fleet is old and there are no stops or washrooms. Still, it is <select class="isel" data-ans="1" id="rp2q2"><option value="">▾</option><option>the cheapest option</option><option>the fastest option</option><option>comfortable enough</option><option>the most flexible</option></select>
+            of all the options.</p>
+<p>Trains offer wi-fi which we could use to finish up our slides on the way. The price is reasonable when compared to airfares. Plus, a train drops us right at the station which is close to the hotel and the university in case we want to visit Dr. Kitayama. Lastly, I really wouldn't mind <select class="isel" data-ans="2" id="rp2q3"><option value="">▾</option><option>the scenic route</option><option>the extra cost</option><option>driving instead</option><option>the early start</option></select>.
+            My car is economical and would give us flexibility to <select class="isel" data-ans="3" id="rp2q4"><option value="">▾</option><option>explore the city freely</option><option>arrive much faster</option><option>avoid the hotel</option><option>save more money</option></select>.
+            After all, we have both worked so hard on this project!</p>
+</div>
+<div style="margin-top:16px"><button class="btn btn-accent btn-sm" id="rp2Submit" onclick="scoreDropdowns('rp2',['least comfortable','the cheapest option','the scenic route','explore the city freely'],['rp2q1','rp2q2','rp2q3','rp2q4'],'rp2Result')">Submit answers</button></div>
+<div id="rp2Result" style="display:none"></div>
+</section>
+</div>
+<div class="exam-bottom">
+<button class="ak-btn ak-reveal-btn" onclick="document.getElementById('rp2ak').classList.toggle('open')" style="display:none">Answer Key</button>
+</div>
+<div class="ak-panel" id="rp2ak"><ol><li>least comfortable</li><li>the cheapest option</li><li>the scenic route</li><li>explore the city freely</li></ol></div>
+</div>
+<!-- ═══════ PART 3 ═══════ -->
+<div class="read-part" id="rp3" style="display:none">
+<div class="exam-head">
+<strong>Practice Test A — Reading Part 3: Reading for Information</strong>
+<span data-minutes="9" id="rp3Timer">Time remaining: 9:00</span>
+<button class="btn btn-accent" data-rp-goto="rp4">NEXT</button>
+</div>
+<div class="card exam-shell">
+<section class="exam-panel">
+<div class="exam-info"><span class="ii">i</span><span>Read the following passage.</span></div>
+<div class="passage" style="font-size:.88rem">
+<p><b>A.</b> The narwhal is an endangered type of whale found in the frigid waters of the Arctic, extending from Canada through the Norwegian waters to Russia. Narwhal means "corpse whale," and it has earned its name because of its mottled dark grey colour. Narwhals are regularly harvested for meat and ivory in northern Canada and Greenland. Narwhals share physical characteristics with Beluga whales, having similar shape and size. Both species lack dorsal fins, have short beaks, rounded heads and a thick layer of blubber to adapt to glacial conditions.</p>
+<p><b>B.</b> The narwhals' distinctive characteristic lies in the presence of a long 2.5-metre spiralling tusk that protrudes from the males' foreheads, resembling a unicorn. The horn-like formation is actually a long left tooth. The right tooth remains embedded in the skull and measures roughly 30 centimetres. Female tusks have a more regularly defined morphology. They are much shorter, straighter, and do not collect as much algae on the surface, thus appearing whiter.</p>
+<p><b>C.</b> For hundreds of years the purpose of the tusk has puzzled scientists and local aboriginal elders alike. A northern aboriginal legend explains the narwhal's tusk was created when a woman shooting with a harpoon rope was dragged into the ocean after the harpoon had struck a large narwhal whale. She was then transformed into a narwhal herself, and her hair, which was long and twisted, became the characteristic spiral tusk. In academic circles, the tusk remains an evolutionary mystery that defies many of the known principles of mammalian teeth. Preliminary studies suggest the tusk enables whales to determine salinity levels and allows them to detect food in their environment.</p>
+<p><b>D.</b> Narwhal behaviour also intrigues researchers. Males frequently engage in episodes of rubbing their tusks together, or "tusking," for reasons that are not fully understood. Some scientists suggest it may be a form of social communication or a way to establish dominance hierarchies. Population numbers are monitored by Canada, Norway, Greenland, and Russia jointly. Despite being listed as an endangered species, narwhals continue to face threats from climate change, which reduces sea-ice cover, and from increased shipping traffic in the Arctic.</p>
+</div>
+</section>
+<section class="exam-panel">
+<div class="exam-info"><span class="ii">i</span><span>Decide which paragraph, <b>A</b> to <b>D</b>, has the information given in each statement below. Select <b>E</b> if the information is not given in any of the paragraphs.</span></div>
+<div id="rp3Qs">
+<div class="rp-stmt"><span class="snum">1.</span><select class="isel" data-ans="A" id="rp3q1"><option value="">▾</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select><span>There are physical differences between male and female narwhals.</span></div>
+<div class="rp-stmt"><span class="snum">2.</span><select class="isel" data-ans="A" id="rp3q2"><option value="">▾</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select><span>Narwhals are also referred to as death-like in colour.</span></div>
+<div class="rp-stmt"><span class="snum">3.</span><select class="isel" data-ans="C" id="rp3q3"><option value="">▾</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select><span>There are aspects of narwhals' anatomy that remain unexplained.</span></div>
+<div class="rp-stmt"><span class="snum">4.</span><select class="isel" data-ans="D" id="rp3q4"><option value="">▾</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select><span>Narwhals present puzzling social interactions.</span></div>
+<div class="rp-stmt"><span class="snum">5.</span><select class="isel" data-ans="E" id="rp3q5"><option value="">▾</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select><span>Narwhal whales are connected to Canadian aboriginal folklore.</span></div>
+<div class="rp-stmt"><span class="snum">6.</span><select class="isel" data-ans="E" id="rp3q6"><option value="">▾</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select><span>There is a sound understanding of narwhals' mating behaviour.</span></div>
+<div class="rp-stmt"><span class="snum">7.</span><select class="isel" data-ans="D" id="rp3q7"><option value="">▾</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select><span>Different countries are documenting narwhal behaviour patterns.</span></div>
+<div class="rp-stmt"><span class="snum">8.</span><select class="isel" data-ans="A" id="rp3q8"><option value="">▾</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select><span>The narwhal population is in jeopardy.</span></div>
+<div class="rp-stmt"><span class="snum">9.</span><select class="isel" data-ans="A" id="rp3q9"><option value="">▾</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select><span>Narwhals' physical characteristics are also observed in other whale groups.</span></div>
+</div>
+<div style="margin-top:16px"><button class="btn btn-accent btn-sm" onclick="scoreDropdowns('rp3',['B','A','C','D','C','E','D','A','A'],['rp3q1','rp3q2','rp3q3','rp3q4','rp3q5','rp3q6','rp3q7','rp3q8','rp3q9'],'rp3Result')">Submit answers</button></div>
+<div id="rp3Result" style="display:none"></div>
+</section>
+</div>
+<div class="exam-bottom">
+<button class="ak-btn ak-reveal-btn" onclick="document.getElementById('rp3ak').classList.toggle('open')" style="display:none">Answer Key</button>
+</div>
+<div class="ak-panel" id="rp3ak"><ol><li>B</li><li>A</li><li>C</li><li>D</li><li>C</li><li>E</li><li>D</li><li>A</li><li>A</li></ol></div>
+</div>
+<!-- ═══════ PART 4 ═══════ -->
+<div class="read-part" id="rp4" style="display:none">
+<div class="exam-head">
+<strong>Practice Test A — Reading Part 4: Reading for Viewpoints</strong>
+<span data-minutes="12" id="rp4Timer">Time remaining: 12:00</span>
+<button class="btn btn-accent exam-next" data-submit="readSubmit" id="rp4FinishBtn">Finish Reading</button>
+</div>
+<div class="card exam-shell">
+<section class="exam-panel">
+<div class="exam-info"><span class="ii">i</span><span>Read the following article from a website.</span></div>
+<div class="passage" style="font-size:.88rem">
+<p>Visitors walking through Carleton High School are often surprised when they pass Bradley Gordon's French class and see students riding on exercise bikes and sitting on yoga balls. Is it a French class, or is it a gym class? Well, it's a bit of both!</p>
+<p>Two major concerns in education are childhood obesity and ADHD, or Attention Deficit Hyperactivity Disorder, a disorder that results in restlessness, hyperactivity, and impulsivity. With high rates of obesity and also students struggling with ADHD in classes across the country, Mr. Gordon came up with an innovative intervention to address both. He decided to infuse academic studies with physical activity in his own classroom.</p>
+<p>The idea came to Gordon after a personal experience in university while working on his bachelor's degree. "I didn't have time to schedule a separate slot for exercise, and my health deteriorated rapidly," said Gordon. "After feeling sick and fatigued for months, I decided to couple my studying with my workouts. To my surprise it proved incredibly helpful. My grades started improving and so did my overall fitness and health."</p>
+<p>Gordon implemented the approach with his students to great effect last year. Despite the students' excitement and academic improvement, he met resistance from the school's principal, Dawn Epstein, who was not convinced that academics and physical exercise should be amalgamated. "Although exercise is certainly important, I didn't think it had any place in academics. I assumed exercise would exacerbate ADHD," Epstein asserted.</p>
+<p>It turns out Ms. Epstein's reaction is a common misconception. As Dr. John Ratney, psychiatry professor at Harvard Medical School, explains: "Exercise turns the attention system on, and helps with working memory, prioritizing and sustaining attention." Sustained attention is one of the most critical skills for academic performance, and one of the areas most affected by ADHD.</p>
+<p>Gordon's intervention has shown measurable results. At the one-year mark, students who participated showed significant improvements in both academic performance and physical fitness compared to a control group that did not receive the intervention.</p>
+</div>
+</section>
+<section class="exam-panel">
+<div class="exam-info"><span class="ii">i</span><span>Choose the <b>best</b> answer from the drop-down menu according to the article.</span></div>
+<div id="rp4Qs">
+<div class="rp-stmt"><span class="snum">1.</span><select class="isel" id="rp4q1"><option value="">▾</option><option>a conventional teacher with an unconventional idea</option><option>an ADHD expert at Carleton High School</option><option>a partnership between a gym and a French class</option><option>a program introduced by the school principal</option></select><span style="display:block;margin-top:4px;font-size:.88rem;color:#5A6068">This article is about</span></div>
+<div class="rp-stmt"><span class="snum">2.</span><select class="isel" id="rp4q2"><option value="">▾</option><option>was immediately supported by the principal</option><option>combined physical activity with academic learning</option><option>replaced the French curriculum entirely</option><option>was designed by a Harvard professor</option></select><span style="display:block;margin-top:4px;font-size:.88rem;color:#5A6068">Mr. Gordon's intervention</span></div>
+<div class="rp-stmt"><span class="snum">3.</span><select class="isel" id="rp4q3"><option value="">▾</option><option>supported by all staff from the beginning</option><option>proven ineffective after one year</option><option>initially opposed by the principal</option><option>suggested by Dr. Ratney</option></select><span style="display:block;margin-top:4px;font-size:.88rem;color:#5A6068">The intervention was</span></div>
+<div class="rp-stmt"><span class="snum">4.</span><select class="isel" id="rp4q4"><option value="">▾</option><option>exercise worsens ADHD symptoms</option><option>exercise improves focus and memory</option><option>physical activity should replace academics</option><option>ADHD is not a real disorder</option></select><span style="display:block;margin-top:4px;font-size:.88rem;color:#5A6068">According to Dr. Ratney, exercising means that</span></div>
+<div class="rp-stmt"><span class="snum">5.</span><select class="isel" id="rp4q5"><option value="">▾</option><option>showed no measurable results</option><option>was cancelled due to low participation</option><option>demonstrated improvements in both fitness and academics</option><option>was adopted by schools across the country</option></select><span style="display:block;margin-top:4px;font-size:.88rem;color:#5A6068">At the one-year mark, the intervention</span></div>
+</div>
+<div class="exam-info" style="margin-top:18px"><span class="ii">i</span><span>The following is a comment by a visitor to the website page. Complete the comment by choosing the <b>best</b> option to fill in each blank.</span></div>
+<div class="rp-fill" style="background:#f8f9fa;border:1px solid #dde3ea;border-radius:6px;padding:14px">
+<p>Interesting article! I've been a high school teacher for fifteen years and I am quite dubious of Mr. Gordon's attempt to
+            <select class="isel" id="rp4q6"><option value="">▾</option><option>combine exercise with academics</option><option>introduce French into gym class</option><option>teach at university level</option><option>challenge the principal</option></select>.
+            Although Dr. Ratney claims that this project
+            <select class="isel" id="rp4q7"><option value="">▾</option><option>helps with attention</option><option>replaces medication</option><option>is too expensive</option><option>has no real evidence</option></select>,
+            I often find the opposite is true. Indeed, it is the students that play soccer or basketball at lunchtime that
+            <select class="isel" id="rp4q8"><option value="">▾</option><option>struggle most in the afternoon</option><option>perform best academically</option><option>get sent to the office</option><option>eat the least</option></select>
+            in the afternoon. It would be a mistake to
+            <select class="isel" id="rp4q9"><option value="">▾</option><option>ignore this research entirely</option><option>introduce this to all schools</option><option>allow it prior to exams</option><option>fund this with public money</option></select>
+            prior to the end of a busy school day. There is also the question of time management. It is simply not possible to get through the curriculum while the students
+            <select class="isel" id="rp4q10"><option value="">▾</option><option>are exercising on bikes</option><option>are watching videos</option><option>eat their lunches</option><option>talk to each other</option></select>.</p>
+</div>
+<div style="margin-top:16px"><button class="btn btn-accent btn-sm" onclick="scoreDropdowns('rp4',['a conventional teacher with an unconventional idea','combined physical activity with academic learning','initially opposed by the principal','exercise improves focus and memory','demonstrated improvements in both fitness and academics','combine exercise with academics','helps with attention','struggle most in the afternoon','allow it prior to exams','are exercising on bikes'],['rp4q1','rp4q2','rp4q3','rp4q4','rp4q5','rp4q6','rp4q7','rp4q8','rp4q9','rp4q10'],'rp4Result')">Submit answers</button></div>
+<div id="rp4Result" style="display:none"></div>
+</section>
+</div>
+<div class="exam-bottom">
+<button class="ak-btn ak-reveal-btn" onclick="document.getElementById('rp4ak').classList.toggle('open')" style="display:none">Answer Key</button>
+</div>
+<div class="ak-panel" id="rp4ak"><ol><li>a conventional teacher with an unconventional idea</li><li>combined physical activity with academic learning</li><li>initially opposed by the principal</li><li>exercise improves focus and memory</li><li>demonstrated improvements in both fitness and academics</li><li>combine exercise with academics</li><li>helps with attention</li><li>struggle most in the afternoon</li><li>allow it prior to exams</li><li>are exercising on bikes</li></ol></div>
+</div>
+</div>
+</div>
+<!-- ============ LISTENING ============ -->
+<div class="view" id="v-listening">
+<div class="wrap">
+<div class="exam-head"><strong>Practice Test A - Listening Part 1: Listening to Problem Solving</strong><span data-minutes="7" id="listenTimer">Time remaining: 7 minutes</span><button class="btn btn-accent exam-next" data-submit="listenSubmit">NEXT</button></div>
+<div class="card exam-shell">
+<section class="exam-panel">
+<h2>Listen to the question.</h2>
+<p class="sub">You will hear it only once. The transcript unlocks after you submit your answers.</p>
+<div class="player">
+<button aria-label="Play audio" class="play-btn" id="playBtn">▶</button>
+<div class="pmeta"><b>Voicemail: a problem with an order</b><small id="playState">Tap to play | approx. 1 min | plays once</small></div>
+</div>
+<div style="margin-top:16px">
+<button class="btn btn-ghost btn-sm" id="transToggle">Transcript locked</button>
+<div class="transcript passage" id="transcriptBox" style="margin-top:12px">
+<p>"Hi, this message is for Sam Carter, this is Renata calling from Brightway Furniture. I'm calling about the bookshelf you ordered last Tuesday. Unfortunately, the walnut colour you chose is out of stock, and the supplier says it won't be available for another six weeks. I'm really sorry about that.</p>
+<p>Now, you do have a few options. We have the same bookshelf in oak, which we could deliver this Friday as planned. Or, if you'd prefer to wait for the walnut, we can offer you a fifteen percent discount for the inconvenience. Of course, you can also cancel for a full refund - no charge at all.</p>
+<p>One more thing - if you choose the oak one, the delivery team needs someone to be home between nine and noon. Please call me back before Wednesday at five so we can arrange everything. My number is 555-0142. Thanks so much, and again, my apologies. Bye for now."</p>
+</div>
+</div>
+</section>
+<section class="exam-panel">
+<h2>Choose the best answer.</h2>
+<div id="listenQs"></div>
+<div class="exam-actions"><div class="question-nav" id="listenNav"></div><button class="btn btn-accent" disabled="" id="listenSubmit">Submit answers</button></div>
+<div id="listenResult"></div>
+</section>
+</div>
+</div>
+</div>
+<!-- ============ WRITING ============ -->
+<div class="view" id="v-writing">
+<div class="wrap">
+<div class="exam-head"><strong>Practice Test A - Writing Task 1: Writing an Email</strong><span data-minutes="27" id="writeTimer">Time remaining: 27 minutes</span><button class="btn btn-accent exam-next" data-submit="writeSubmit">NEXT</button></div>
+<div class="card exam-shell">
+<section class="exam-panel">
+<h2>Read the following information.</h2>
+<div class="passage">
+<p><b>Task:</b> You live in an apartment building. The main elevator has been out of service for two weeks, and you live on the eighth floor with a young child.</p>
+<p>Write an email to your building manager in about 150-200 words. Your email should:</p>
+<p>- Describe the problem and how it affects you<br/>- Explain what you have already done about it<br/>- Say what you want the manager to do, and by when</p>
+</div>
+<div class="exam-actions"><span class="exam-mini">Target: 150-200 words</span><button class="btn btn-ghost btn-sm" id="writeStart">Timer runs automatically</button></div>
+</section>
+<section class="exam-panel">
+<h2>Write your response</h2>
+<textarea id="writeBox" placeholder="Dear Mr. ..." spellcheck="true"></textarea>
+<div class="exam-actions"><div class="wc"><b id="wcNum">0</b> words - target 150-200</div><button class="btn btn-accent" id="writeSubmit">Submit writing</button></div>
+<div id="writeResult"></div>
+</section>
+</div>
+</div>
+</div>
+<!-- ============ SPEAKING ============ -->
+<div class="view" id="v-speaking">
+<div class="wrap">
+<button class="btn btn-ghost btn-sm" onclick="document.querySelectorAll('.view').forEach(function(v){v.classList.remove('on');}); var h=document.getElementById('v-home'); if(h) h.classList.add('on'); window.scrollTo({top:0});" style="margin-bottom:18px">← Back to Home</button>
+<span class="eyebrow">Speaking</span>
+<h1>All 8 task types</h1>
+<p class="lead">Pick a task. You'll get the official preparation time, then the answer timer starts. Allow microphone access to record yourself and listen back.</p>
+<div class="card">
+<div class="task-pick" id="taskPick"></div>
+<div class="passage" id="speakPrompt"></div>
+<div class="phase-label" id="phaseLabel">Ready</div>
+<div class="speak-display-prefs" id="speakPrefs"><span class="exam-mini">Speaking view:</span><button class="pref-btn on" data-speak-view="bar" type="button">Bar</button><button class="pref-btn" data-speak-view="timer" type="button">Timer</button></div>
+<div class="big-timer" id="speakTimer">--:--</div>
+<div class="center" style="margin-bottom:8px">
+<button class="btn btn-accent" id="speakStart">Start task</button>
+<button class="btn btn-ghost" id="speakReset" style="display:none">Reset</button>
+<button class="btn btn-ghost" id="speakSkip">Skip task</button>
+</div>
+<div class="center" id="recArea"></div>
+<p class="note">Tip: in Tasks 1–8, structure beats vocabulary. State your point, give two reasons with examples, and finish with one closing sentence.</p>
+</div>
+</div>
+</div>
+<!-- ============ MOCK ============ -->
+<div class="view" id="v-mock">
+<div class="wrap">
+<span class="eyebrow">Mini Mock Test</span>
+<h1>Four skills. <span class="serif" style="color:var(--accent)">About 25 minutes.</span></h1>
+<div class="progress-track"><i id="mockBar"></i></div>
+<!-- Stage 0: intro -->
+<div class="mock-stage on" id="m0">
+<div class="card">
+<h2>Before you start</h2>
+<p class="sub">The mock runs in test order: Listening, Reading, Writing, Speaking. It is shortened for practice, so results are practice indicators only.</p>
+<button class="btn btn-accent" id="mockGo">Begin · Listening</button>
+</div>
+</div>
+<!-- Stage 1: Listening -->
+<div class="mock-stage" id="m1">
+<div class="card">
+<h2>Section 1 · Listening</h2>
+<p class="sub">Play the announcement once, then answer 3 questions.</p>
+<div class="player">
+<button aria-label="Play audio" class="play-btn" id="mPlayBtn">▶</button>
+<div class="pmeta"><b>Community centre announcement</b><small id="mPlayState">Plays once</small></div>
+</div>
+<div id="mListenQs"></div>
+<button class="btn btn-accent" disabled="" id="m1Next">Continue · Reading</button>
+</div>
+</div>
+<!-- Stage 2: Reading -->
+<div class="mock-stage" id="m2">
+<div class="card">
+<h2>Section 2 · Reading</h2>
+<p class="sub">Read the notice and answer 4 questions.</p>
+<div class="passage">
+<p><b>NOTICE TO ALL TENANTS — Maplewood Apartments</b></p>
+<p>Beginning Monday, June 22, the underground parking garage will be closed for resurfacing. The work is expected to take ten days. During this period, tenants may park free of charge in the lot behind the Gleason Street library, a five-minute walk away. Display the orange permit (available from the front desk starting this Friday) on your dashboard; vehicles without a permit may be ticketed by the city.</p>
+<p>Tenants with accessibility needs should contact the building office by Thursday to arrange one of the six temporary spots that will remain open beside the lobby entrance. We apologize for the inconvenience and thank you for your patience. Questions may be directed to the building office between 9 a.m. and 5 p.m. on weekdays.</p>
+</div>
+<div id="mReadQs"></div>
+<button class="btn btn-accent" disabled="" id="m2Next">Continue · Writing</button>
+</div>
+</div>
+<!-- Stage 3: Writing -->
+<div class="mock-stage" id="m3">
+<div class="card">
+<h2>Section 3 · Writing <span class="timer-chip" id="mWriteTimer" style="margin-left:10px">⏱ 10:00</span></h2>
+<div class="passage" style="margin-top:14px">
+<p><b>Task:</b> Your city is planning to remove a small park to build a parking lot. Write a short response (about 100–150 words) to the city's online survey. State whether you agree or disagree, and give two reasons.</p>
+</div>
+<textarea id="mWriteBox" placeholder="I strongly believe that..." style="min-height:200px"></textarea>
+<div class="wc"><b id="mWcNum">0</b> words · target 100–150</div>
+<div style="margin-top:14px"><button class="btn btn-accent" id="m3Next">Submit · Speaking</button></div>
+</div>
+</div>
+<!-- Stage 4: Speaking -->
+<div class="mock-stage" id="m4">
+<div class="card">
+<h2>Section 4 · Speaking</h2>
+<div class="passage" style="margin-top:14px">
+<p><b>Task — Giving Advice:</b> Your friend has just moved to Canada and is nervous about making friends in a new country. Give your friend some advice. <i>(Prep: 30 seconds · Answer: 90 seconds)</i></p>
+</div>
+<div class="phase-label" id="mPhaseLabel">Ready</div>
+<div class="big-timer" id="mSpeakTimer">--:--</div>
+<div class="center">
+<button class="btn btn-accent" id="mSpeakStart">Start speaking task</button>
+<button class="btn btn-ghost" id="m4Next" style="display:none">Finish · See results</button>
+</div>
+</div>
+</div>
+<!-- Stage 5: Results -->
+<div class="mock-stage" id="m5">
+<div class="card center">
+<h2>Your mock results</h2>
+<div class="band-grid" id="bandGrid"></div>
+<p class="sub" id="mockSummary"></p>
+<a class="btn btn-accent" href="#" id="mockWa" rel="noopener" target="_blank">Get human feedback on Writing &amp; Speaking</a>
+<p class="note" style="text-align:left">Listening and Reading bands are estimated from your score on this short sample. Writing and Speaking need human scoring - send your answers via the button above for a full review.</p>
+<div style="margin-top:14px"><button class="btn btn-ghost btn-sm" id="mockRetry">Retake mock</button></div>
+</div>
+</div>
+</div>
+</div>
+<footer>
+  Akash CELPIP Practice · Original CELPIP-style materials · Not affiliated with Paragon Testing Enterprises<br/>
+  Band estimates are approximate and for practice purposes only.
+</footer>
+<script>
+/* ================= CONFIG — EDIT THIS ================= */
+const WHATSAPP_NUMBER = "18733533470"; // your number: country code, no + or spaces
+/* ====================================================== */
+
+/* ---------- Router ---------- */
+const views = ["home","reading","listening","writing","speaking","mock","results"];
+function go(v){
+  views.forEach(x=>{
+    document.getElementById("v-"+x).classList.toggle("on", x===v);
+  });
+  document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("on", t.dataset.go===v));
+  startViewTimer(v);
+  scrollTo({top:0});
+}
+document.querySelectorAll("[data-go]").forEach(el=>el.addEventListener("click",()=>go(el.dataset.go)));
+
+
+
+/* ---------- Exam timing and question status ---------- */
+const sectionTimers = {};
+function formatTimeLeft(total){
+  total = Math.max(0,total);
+  var m = Math.floor(total/60), s = total%60;
+  return 'Time remaining: '+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+function startCountdown(el){
+  if(!el || sectionTimers[el.id]) return;
+  let left = (+el.dataset.minutes || 0) * 60;
+  el.textContent = formatTimeLeft(left);
+  sectionTimers[el.id] = setInterval(()=>{
+    left--;
+    el.textContent = left<=0 ? 'Time is up' : formatTimeLeft(left);
+    el.classList.toggle('danger', left<=60);
+    if(left<=0) clearInterval(sectionTimers[el.id]);
+  },1000);
+}
+function startViewTimer(v){
+  const id = v==='reading' ? 'readTimer' : v==='listening' ? 'listenTimer' : v==='writing' ? 'writeTimer' : '';
+  if(id) startCountdown(document.getElementById(id));
+}
+function showPendingDialog(onSkip){
+  const dlg = document.getElementById('pendingDialog');
+  dlg.classList.add('open');
+  document.getElementById('keepWorking').onclick = ()=>dlg.classList.remove('open');
+  document.getElementById('skipNext').onclick = ()=>{ dlg.classList.remove('open'); if(onSkip) onSkip(); };
+}
+document.querySelectorAll('.exam-next').forEach(btn=>btn.addEventListener('click',()=>{
+  const submit = document.getElementById(btn.dataset.submit);
+  if(submit && submit.disabled){
+    const navId = btn.dataset.submit==='readSubmit' ? 'readNav' : btn.dataset.submit==='listenSubmit' ? 'listenNav' : '';
+    if(navId) document.querySelectorAll('#'+navId+' .qdot.pending').forEach(d=>d.classList.add('missing'));
+    showPendingDialog(()=>{});
+    return;
+  }
+  if(submit) submit.click();
+}));
+
+/* ---------- Reading part switcher ---------- */
+function switchReadPart(id){
+  document.querySelectorAll('.read-part').forEach(p=>p.style.display='none');
+  document.getElementById(id).style.display='block';
+  document.querySelectorAll('.rp-btn').forEach(b=>{ b.classList.toggle('on',b.dataset.part===id); b.classList.toggle('btn-accent',b.dataset.part===id); b.classList.toggle('btn-ghost',b.dataset.part!==id); });
+  startCountdown(document.getElementById(id==='rp1'?'readTimer':id==='rp2'?'rp2Timer':id==='rp3'?'rp3Timer':'rp4Timer'));
+  scrollTo({top:0});
+}
+document.querySelectorAll('.rp-btn').forEach(b=>b.addEventListener('click',()=>switchReadPart(b.dataset.part)));
+
+/* ---------- Dropdown scorer ---------- */
+function scoreDropdowns(part, answers, ids, resultId){
+  let correct=0;
+  ids.forEach((id,i)=>{
+    const sel=document.getElementById(id);
+    if(!sel) return;
+    const val=sel.value;
+    sel.disabled=true;
+    if(val===answers[i]){ correct++; sel.style.borderColor='#0E8A5F'; sel.style.background='#E4F4ED'; }
+    else { sel.style.borderColor='#C92A3D'; sel.style.background='#FBE9EC'; }
+  });
+  const pct=correct/answers.length;
+  const band=pct>=.85?'CLB 9+':pct>=.68?'CLB 8':pct>=.5?'CLB 7':'Below CLB 7';
+  const r=document.getElementById(resultId);
+  if(r) r.innerHTML='<div class="result-box" style="margin-top:14px;background:'+(pct>=.68?'var(--good-soft)':'var(--surface-2)')+'"><div class="big">'+correct+'/'+answers.length+'</div><div class="band">Estimated band: '+band+'</div></div>';
+  recordScore('reading', pct>=.85?9:pct>=.68?8:pct>=.5?7:6);
+}
+
+/* Mark isel answered on change */
+document.addEventListener('change', e=>{
+  if(e.target.classList.contains('isel') && e.target.value) e.target.classList.add('answered');
+});
+
+
+/* ---------- Score tracking & scoreboard ---------- */
+const SKILLS=[["listening","Listening"],["reading","Reading"],["writing","Writing"],["speaking","Speaking"]];
+let scores={};
+try{ scores=JSON.parse(localStorage.getItem("polarisScores"))||{}; }catch(e){ scores={}; } // falls back to this-session-only if storage is blocked
+SKILLS.forEach(([k])=>{ if(!Array.isArray(scores[k])) scores[k]=[]; });
+function saveScores(){ try{ localStorage.setItem("polarisScores",JSON.stringify(scores)); }catch(e){} }
+function avgOf(a){ return a.length ? a.reduce((x,y)=>x+y,0)/a.length : null; }
+function pctToBand(p){ return p>=.99?10 : p>=.85?9 : p>=.68?8 : p>=.5?7 : p>=.33?6 : 5; }
+function recordScore(skill,band){ scores[skill].push(band); saveScores(); renderScoreboard(); }
+function segbarHTML(val){
+  let h="";
+  for(let i=1;i<=12;i++){
+    const cls = val===null ? "" : (i<=Math.floor(val) ? "fill" : (i-1<val ? "half" : ""));
+    h+='<i class="'+cls+'"></i>';
+  }
+  return h;
+}
+function renderScoreboard(){
+  const skillAvgs = SKILLS.map(([k])=>avgOf(scores[k]));
+  const haveData = skillAvgs.filter(v=>v!==null);
+  const overall = haveData.length ? haveData.reduce((x,y)=>x+y,0)/haveData.length : null;
+  document.getElementById("sbOverall").innerHTML = (overall!==null ? overall.toFixed(1) : "—")+"<small> / 12</small>";
+  document.getElementById("sbLabel").textContent = overall!==null
+    ? "Your overall band · tap for details"
+    : "Complete any task to start your score · tap for details";
+  document.getElementById("sbBar").innerHTML = segbarHTML(overall);
+  document.getElementById("sbDetail").innerHTML =
+    SKILLS.map(([k,name],i)=>{
+      const v = skillAvgs[i];
+      return '<div class="sb-row"><span class="sname">'+name+'</span>'+
+        '<div class="segbar">'+segbarHTML(v)+'</div>'+
+        '<span class="sval"><b>'+(v!==null?v.toFixed(1):"—")+'</b><small>'+scores[k].length+' attempt'+(scores[k].length===1?"":"s")+'</small></span></div>';
+    }).join('')+
+    '<button class="sb-reset" id="sbReset">Reset all scores</button>'+
+    '<p class="note" style="margin-top:14px">Listening &amp; Reading bands come from your quiz scores. Writing is estimated from structure checks; Speaking is your self-rating. Estimates only — real CELPIP scoring is done by trained raters.</p>';
+  const r=document.getElementById("sbReset");
+  if(r) r.addEventListener("click",e=>{
+    e.stopPropagation();
+    SKILLS.forEach(([k])=>scores[k]=[]); saveScores(); renderScoreboard();
+  });
+}
+const sbEl=document.getElementById("scorebar");
+sbEl.addEventListener("click",e=>{ if(e.target.id!=="sbReset") sbEl.classList.toggle("open"); });
+sbEl.addEventListener("keydown",e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();sbEl.classList.toggle("open");} });
+renderScoreboard();
+
+/* ---------- Reusable quiz engine ---------- */
+function buildQuiz(containerId, questions, submitBtnId, resultId, onDone){
+  const box = document.getElementById(containerId);
+  const submit = document.getElementById(submitBtnId);
+  const picks = new Array(questions.length).fill(null);
+  const navId = containerId.replace('Qs','Nav');
+  const nav = document.getElementById(navId);
+  box.innerHTML = questions.map((q,qi)=>
+    '<div class="q" id="'+containerId+'Q'+qi+'"><div class="qt">'+(qi+1)+'. '+q.q+'</div>'+
+    q.opts.map((o,oi)=>'<button class="opt" data-q="'+qi+'" data-o="'+oi+'">'+o+'</button>').join('')+
+    '</div>'
+  ).join('');
+  if(nav){
+    nav.innerHTML = questions.map((_,i)=>'<button class="qdot pending" type="button" data-q="'+i+'">'+(i+1)+'</button>').join('');
+    nav.querySelectorAll('.qdot').forEach(d=>d.addEventListener('click',()=>{
+      const q = document.getElementById(containerId+'Q'+d.dataset.q);
+      if(q) q.scrollIntoView({behavior:'smooth',block:'center'});
+    }));
+  }
+  function updateNav(){
+    if(!nav) return;
+    nav.querySelectorAll('.qdot').forEach((d,i)=>{
+      const answered = picks[i]!==null;
+      d.classList.toggle('answered', answered);
+      d.classList.toggle('pending', !answered);
+      if(answered) d.classList.remove('missing');
+      d.title = answered ? 'Question '+(i+1)+' answered' : 'Question '+(i+1)+' pending';
+    });
+  }
+  box.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{
+    const qi=+b.dataset.q;
+    picks[qi]=+b.dataset.o;
+    box.querySelectorAll('.opt[data-q="'+qi+'"]').forEach(x=>x.classList.remove('sel'));
+    b.classList.add('sel');
+    submit.disabled = picks.some(p=>p===null);
+    updateNav();
+  }));
+  submit.addEventListener('click',()=>{
+    if(picks.some(p=>p===null)){
+      if(nav) nav.querySelectorAll('.qdot.pending').forEach(d=>d.classList.add('missing'));
+      showPendingDialog(()=>{});
+      return;
+    }
+    let score=0;
+    box.querySelectorAll('.opt').forEach(b=>{
+      const qi=+b.dataset.q, oi=+b.dataset.o;
+      b.disabled=true;
+      if(oi===questions[qi].a){b.classList.add('correct');}
+      else if(picks[qi]===oi){b.classList.add('wrong');}
+    });
+    questions.forEach((q,qi)=>{if(picks[qi]===q.a)score++;});
+    submit.style.display='none';
+    const pct = score/questions.length;
+    const band = pct>=.85?'CLB 9+':pct>=.68?'CLB 8':pct>=.5?'CLB 7':'Below CLB 7';
+    if(resultId){
+      document.getElementById(resultId).innerHTML =
+        '<div class="result-box" style="background:'+(pct>=.68?'var(--good-soft)':'var(--surface-2)')+'">'+
+        '<div class="big">'+score+'/'+questions.length+'</div>'+
+        '<div class="band">Practice result: '+band+'</div>'+
+        '<p>Practice indicator from this short sample. Official CELPIP scores require the full test and trained rating.</p></div>';
+    }
+    if(submitBtnId==='listenSubmit'){ listeningChecked = true; const tb=document.getElementById('transToggle'); if(tb) tb.textContent='Show transcript'; }
+    if(onDone) onDone(score, questions.length);
+  });
+  updateNav();
+}
+
+/* ---------- Reading ---------- */
+/* Part 1 inline dropdowns */
+(function(){
+  var box = document.getElementById('readQs');
+  if(!box) return;
+  var qs = [
+    ['p1q1','Maria\u2019s mother is now',['in Chile','in Calgary','in Vancouver','in Victoria']],
+    ['p1q2','In a few weeks, Marco will be',['moving back to Chile','getting married soon','going to Tokyo','visiting Vancouver']],
+    ['p1q3','Marco is feeling',['relieved the trip is over','excited but a little nervous','unhappy about the job offer','confident about speaking Japanese']],
+    ['p1q4',"Marco\u2019s employers specialize in",['rebuilding cities after disasters','teaching Japanese language','translating for foreigners','studying earthquake engineering']],
+    ['p1q5','Maria and Jack are worried about',['his health abroad','the language barrier','Marco leaving for Tokyo','the cost of the party']],
+    ['p1q6','Mea and Maria',['met recently at the graduation','are old friends who have not seen each other in a while','live in the same neighbourhood','work at the same company']]
+  ];
+  box.innerHTML = qs.map(function(q,i){
+    return '<div class="rp-stmt"><span class="snum">'+(i+1)+'.</span><select class="isel" id="'+q[0]+'"><option value="">\u25be</option>'+
+      q[2].map(function(o){return '<option>'+o+'</option>';}).join('')+
+      '</select><span>'+q[1]+'</span></div>';
+  }).join('') +
+  '<div style="margin-top:16px"><button class="btn btn-accent btn-sm" id="p1Submit">Submit answers</button></div>'+
+  '<div id="readResult" style="display:none"></div>';
+  document.getElementById('p1Submit').onclick = function(){
+    scoreDropdowns('reading',
+      ['in Vancouver','going to Tokyo','excited but a little nervous','rebuilding cities after disasters','Marco leaving for Tokyo','are old friends who have not seen each other in a while'],
+      ['p1q1','p1q2','p1q3','p1q4','p1q5','p1q6'],
+      'readResult');
+  };
+})();
+
+/* ---------- Listening (browser speech audio) ---------- */
+const LISTEN_TEXT = document.getElementById("transcriptBox").innerText;
+let listenPlayed = false;
+let listeningChecked = false;
+if("speechSynthesis" in window){ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices(); } // warm up async voice list
+function playTTS(text, btn, stateEl, onEnd){
+  if(!("speechSynthesis" in window)){ stateEl.textContent="Audio not supported on this browser — use the transcript."; return; }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.rate = .95; u.lang = "en-CA";
+  const vs = speechSynthesis.getVoices();
+  const v = vs.find(v=>/en[-_](CA|US|GB)/i.test(v.lang)) || vs[0];
+  if(v) u.voice = v;
+  btn.disabled = true; btn.textContent = "⏸";
+  stateEl.textContent = "Playing… listen carefully, it plays once.";
+  u.onend = ()=>{ btn.textContent="✓"; stateEl.textContent="Finished. Now answer the questions."; if(onEnd)onEnd(); };
+  speechSynthesis.speak(u);
+}
+document.getElementById("playBtn").addEventListener("click",function(){
+  if(listenPlayed) return;
+  listenPlayed = true;
+  playTTS(LISTEN_TEXT, this, document.getElementById("playState"));
+});
+buildQuiz("listenQs",[
+  {q:"Why is Renata calling Sam?", opts:["To confirm a delivery time","To explain a problem with an order","To advertise a sale","To ask for a payment"], a:1},
+  {q:"What is the problem with the bookshelf?", opts:["It arrived damaged","It was sent to the wrong address","The chosen colour is out of stock","The price has increased"], a:2},
+  {q:"What does Brightway offer if Sam waits for the walnut colour?", opts:["Free delivery","A 15% discount","A larger bookshelf","A gift card"], a:1},
+  {q:"If Sam chooses the oak bookshelf, what must he do?", opts:["Pick it up from the store","Pay an extra fee","Be home between 9 and noon on Friday","Sign a new contract"], a:2},
+  {q:"By when should Sam call back?", opts:["Friday at noon","Wednesday at 5","Tuesday morning","Within six weeks"], a:1}
+],"listenSubmit","listenResult",(s,t)=>recordScore("listening",pctToBand(s/t)));
+document.getElementById("transToggle").addEventListener("click",()=>{
+  if(!listeningChecked){ document.getElementById("playState").textContent="Submit your answers before opening the transcript."; return; }
+  document.getElementById("transcriptBox").classList.toggle("open");
+});
+
+/* ---------- Writing ---------- */
+const wBox = document.getElementById("writeBox");
+const wcNum = document.getElementById("wcNum");
+function countWords(s){ return (s.trim().match(/\S+/g)||[]).length; }
+wBox.addEventListener("input",()=>wcNum.textContent = countWords(wBox.value));
+
+let wTimer=null, wLeft=27*60;
+function fmt(s){ return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0"); }
+document.getElementById("writeStart").addEventListener("click",function(){
+  startCountdown(document.getElementById('writeTimer'));
+});
+
+function writingChecks(text, lo, hi){
+  const words = countWords(text);
+  const t = text.toLowerCase();
+  const paras = text.split(/\n\s*\n|\n/).filter(p=>p.trim().length>0).length;
+  const connectors = ["however","therefore","in addition","furthermore","as a result","firstly","secondly","finally","for example","moreover","although","consequently"];
+  const connHits = connectors.filter(c=>t.includes(c));
+  const hasGreeting = /^(dear|hello|hi)\b/m.test(t);
+  const hasClosing = /(sincerely|regards|best wishes|thank you|yours truly|respectfully)/.test(t);
+  const sentences = text.split(/[.!?]+/).filter(s=>s.trim().length>2);
+  const avgLen = sentences.length ? Math.round(words/sentences.length) : 0;
+  return [
+    {ok: words>=lo && words<=hi+30, label:"Word count: "+words, tip: words<lo?"Too short — develop each point with one example.":(words>hi+30?"A little long — trim repetition.":"In the target range.")},
+    {ok: hasGreeting, label:"Opening greeting", tip:"Formal emails open with 'Dear …,' — the test rewards correct tone."},
+    {ok: hasClosing, label:"Closing phrase", tip:"End with 'Sincerely,' or 'Best regards,' plus your name."},
+    {ok: paras>=3, label:"Paragraphing ("+paras+" found)", tip:"Use one paragraph per bullet point in the task — 3–4 total."},
+    {ok: connHits.length>=2, label:"Connectors ("+connHits.length+" used)", tip:"Linking words like 'however' and 'as a result' raise the Coherence score."},
+    {ok: avgLen>=10 && avgLen<=24, label:"Sentence length (avg "+avgLen+" words)", tip:"Mix short and long sentences; very long ones invite grammar errors."}
+  ];
+}
+function renderChecks(list){
+  return '<div style="margin-top:18px">'+list.map(c=>
+    '<div class="check '+(c.ok?"ok":"no")+'"><div class="ci">'+(c.ok?"✓":"!")+'</div><div><b>'+c.label+'</b><small>'+c.tip+'</small></div></div>'
+  ).join('')+'</div>';
+}
+document.getElementById("writeSubmit").addEventListener("click",()=>{
+  if(wTimer) clearInterval(wTimer);
+  const checks = writingChecks(wBox.value,150,200);
+  const passed = checks.filter(c=>c.ok).length;
+  recordScore("writing",[5,5,6,6,7,8,9][passed]);
+  document.getElementById("writeResult").innerHTML =
+    renderChecks(checks)+
+    '<div class="note"><b>'+passed+'/6 structure checks passed.</b> This is an automated structure check — grammar, vocabulary, and task fulfillment need a human eye. '+
+    '<a href="https://wa.me/'+WHATSAPP_NUMBER+'?text='+encodeURIComponent("Hi! I'd like full feedback on my CELPIP writing task.")+'" target="_blank" rel="noopener" style="color:var(--accent);font-weight:600">Send it for full feedback →</a></div>';
+});
+
+/* ---------- Speaking ---------- */
+const TASKS = [
+  {n:"1 · Giving Advice", prep:30, ans:90, p:"Your neighbour wants to buy his teenage son a first car, but he is worried about safety and cost. Give your neighbour some advice."},
+  {n:"2 · Personal Experience", prep:30, ans:60, p:"Talk about a time when you helped someone you didn't know. Where were you? What happened? How did you feel afterwards?"},
+  {n:"3 · Describing a Scene", prep:30, ans:60, p:"Imagine a busy farmers' market on a Saturday morning. Describe the scene to someone who cannot see it — the people, the stalls, the sounds, what is happening."},
+  {n:"4 · Predictions", prep:30, ans:60, p:"Look at the same farmers' market scene. What do you think will happen next? Make predictions about the people and what they will do."},
+  {n:"5 · Comparing & Persuading", prep:60, ans:60, p:"Your family is choosing between two vacation rentals: a quiet cabin by a lake, or a downtown condo near restaurants and museums. Your family prefers the condo. Persuade them the cabin is the better choice."},
+  {n:"6 · Difficult Situation", prep:60, ans:60, p:"You promised to attend your best friend's birthday dinner, but your manager just asked you to work overtime that same evening for an important deadline. Choose one option and explain your choice — either to your friend or to your manager."},
+  {n:"7 · Expressing Opinions", prep:30, ans:90, p:"Some people believe children should get paid for doing household chores; others believe chores are a family responsibility. What is your opinion? Explain with reasons and examples."},
+  {n:"8 · Unusual Situation", prep:30, ans:60, p:"You ordered a winter jacket online, but the package contains a wedding dress instead. Leave a voicemail for the company describing exactly what you received and what you want them to do."}
+];
+let curTask = 0, spTimer = null, mediaRec = null, chunks = [], speakView = 'bar';
+let speakPhase = {kind:'ready', left:0, total:0, label:'Ready'};
+const pickBox = document.getElementById("taskPick");
+const speakTimerEl = document.getElementById("speakTimer");
+const phaseEl = document.getElementById("phaseLabel");
+const recArea = document.getElementById("recArea");
+const startBtn = document.getElementById("speakStart");
+const resetBtn = document.getElementById("speakReset");
+const skipBtn = document.getElementById("speakSkip");
+const prefsBox = document.getElementById("speakPrefs");
+const barWrap = document.createElement('div');
+barWrap.className = 'speak-bar-wrap';
+barWrap.innerHTML = '<div class="speak-bar" id="speakBar"></div>';
+speakTimerEl.insertAdjacentElement('afterend', barWrap);
+const speakBarEl = document.getElementById('speakBar');
+
+function syncTaskButtons(){
+  pickBox.querySelectorAll('button').forEach((x,xi)=>x.classList.toggle('on', xi===curTask));
+  skipBtn.disabled = curTask >= TASKS.length-1;
+}
+function activateTask(i){
+  curTask = Math.max(0, Math.min(TASKS.length-1, i));
+  syncTaskButtons();
+  resetSpeak();
+}
+TASKS.forEach((t,i)=>{
+  const b = document.createElement("button");
+  b.textContent = "Task " + t.n.split(" ·")[0];
+  b.title = t.n;
+  if(i===0) b.classList.add("on");
+  b.addEventListener("click",()=>activateTask(i));
+  pickBox.appendChild(b);
+});
+function showTask(){
+  const t = TASKS[curTask];
+  document.getElementById("speakPrompt").innerHTML = "<p><b>Task " + t.n + "</b> &nbsp;·&nbsp; Prep " + t.prep + "s · Answer " + t.ans + "s</p><p>" + t.p + "</p>";
+}
+function renderSpeakPhase(){
+  phaseEl.innerHTML = speakPhase.label;
+  if(speakPhase.kind === 'answer' && speakView === 'bar'){
+    speakTimerEl.textContent = fmt(Math.max(speakPhase.left,0));
+    speakTimerEl.classList.add('speaking-bar-mode');
+    barWrap.style.display = 'block';
+    const pct = speakPhase.total ? ((speakPhase.total - Math.max(speakPhase.left,0)) / speakPhase.total) * 100 : 0;
+    speakBarEl.style.width = Math.max(0, Math.min(100, pct)) + '%';
+  }else{
+    speakTimerEl.classList.remove('speaking-bar-mode');
+    barWrap.style.display = 'none';
+    speakTimerEl.textContent = speakPhase.kind === 'ready' ? '--:--' : fmt(Math.max(speakPhase.left,0));
+  }
+}
+function resetSpeak(){
+  clearInterval(spTimer); spTimer = null;
+  stopRecording(false);
+  speakPhase = {kind:'ready', left:0, total:0, label:'Ready'};
+  startBtn.style.display = '';
+  resetBtn.style.display = 'none';
+  recArea.innerHTML = '';
+  showTask();
+  renderSpeakPhase();
+}
+function runPhase(secs, label, after, kind){
+  clearInterval(spTimer);
+  speakPhase = {kind:kind, left:secs, total:secs, label:label};
+  renderSpeakPhase();
+  spTimer = setInterval(()=>{
+    speakPhase.left--;
+    renderSpeakPhase();
+    if(speakPhase.left <= 0){
+      clearInterval(spTimer);
+      spTimer = null;
+      after();
+    }
+  },1000);
+}
+async function startRecording(){
+  try{
+    const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+    chunks = [];
+    mediaRec = new MediaRecorder(stream);
+    mediaRec.ondataavailable = e=>chunks.push(e.data);
+    mediaRec.onstop = ()=>{
+      stream.getTracks().forEach(t=>t.stop());
+      const url = URL.createObjectURL(new Blob(chunks,{type:"audio/webm"}));
+      recArea.insertAdjacentHTML("afterbegin", '<p style="font-size:.85rem;color:var(--ink-2);margin:14px 0 8px">Your recording — listen back and self-check: did you answer the whole task?</p><audio controls src="'+url+'" style="width:100%"></audio>');
+    };
+    mediaRec.start();
+    return true;
+  }catch(e){
+    recArea.innerHTML = '<p class="note">Microphone unavailable — practising without recording still works. Speak out loud!</p>';
+    return false;
+  }
+}
+function stopRecording(save){
+  if(mediaRec && mediaRec.state !== "inactive"){
+    if(save){ mediaRec.stop(); }
+    else { mediaRec.ondataavailable = null; mediaRec.onstop = null; mediaRec.stop(); }
+  }
+  mediaRec = null;
+}
+function finishSpeakingTask(){
+  stopRecording(true);
+  speakPhase = {kind:'done', left:0, total:0, label: curTask < TASKS.length-1 ? 'Done — moving to the next task' : 'Done — well done!'};
+  renderSpeakPhase();
+  if(curTask < TASKS.length-1){
+    setTimeout(()=>activateTask(curTask + 1), 1200);
+    return;
+  }
+  const rateDiv = document.createElement("div");
+  rateDiv.className = "rate-row";
+  rateDiv.innerHTML = "<p>Listen back, then rate yourself honestly (band):</p>" + [6,7,8,9,10].map(b=>'<button data-b="'+b+'">'+b+'</button>').join('');
+  recArea.appendChild(rateDiv);
+  rateDiv.querySelectorAll("button").forEach(btn=>btn.addEventListener("click",()=>{
+    recordScore("speaking", +btn.dataset.b);
+    rateDiv.innerHTML = '<p style="color:var(--good)">✓ Saved to your score</p>';
+  }));
+}
+startBtn.addEventListener("click", async function(){
+  this.style.display = "none";
+  resetBtn.style.display = "";
+  const t = TASKS[curTask];
+  runPhase(t.prep, 'Preparation — plan your two main points', async ()=>{
+    const rec = await startRecording();
+    runPhase(t.ans, rec ? '<span class="rec-dot"></span>Recording — speak now' : 'Speak now', finishSpeakingTask, 'answer');
+  }, 'prep');
+});
+resetBtn.addEventListener("click", resetSpeak);
+skipBtn.addEventListener("click", ()=>{ if(curTask < TASKS.length-1) activateTask(curTask + 1); });
+prefsBox.querySelectorAll('[data-speak-view]').forEach(btn=>btn.addEventListener('click', ()=>{
+  speakView = btn.dataset.speakView;
+  prefsBox.querySelectorAll('[data-speak-view]').forEach(x=>x.classList.toggle('on', x===btn));
+  renderSpeakPhase();
+}));
+syncTaskButtons();
+showTask();
+renderSpeakPhase();
+
+/* ---------- Mock test ---------- */
+const mock = {stage:0, listen:0, read:0, words:0, checks:0};
+function setStage(n){
+  mock.stage=n;
+  for(let i=0;i<=5;i++) document.getElementById("m"+i).classList.toggle("on", i===n);
+  document.getElementById("mockBar").style.width=(n/5*100)+"%";
+  scrollTo({top:0});
+}
+document.getElementById("mockGo").addEventListener("click",()=>setStage(1));
+
+const MOCK_LISTEN_TEXT = "Attention all members. This is an announcement from the Riverside Community Centre. Due to a water leak in the main gymnasium, all fitness classes scheduled for this weekend will be moved to the east hall on the second floor. The swimming pool is not affected and will remain open during regular hours. Members who wish to cancel their weekend class registration will receive a full credit on their account — simply reply to the email we sent this morning before Saturday at nine a.m. We expect the gymnasium to reopen on Tuesday. We apologize for the inconvenience and thank you for your understanding.";
+let mockPlayed=false;
+document.getElementById("mPlayBtn").addEventListener("click",function(){
+  if(mockPlayed) return; mockPlayed=true;
+  playTTS(MOCK_LISTEN_TEXT,this,document.getElementById("mPlayState"));
+});
+buildQuiz("mListenQs",[
+  {q:"Why are the fitness classes being moved?", opts:["The gym is being painted","A water leak in the gymnasium","Low registration numbers","A staff shortage"], a:1},
+  {q:"What stays open as usual?", opts:["The east hall","The main gymnasium","The swimming pool","The front desk"], a:2},
+  {q:"How can members get a credit?", opts:["Call before Tuesday","Visit the front desk on Sunday","Reply to the email before Saturday 9 a.m.","Fill out a form in the east hall"], a:2}
+],"m1Next",null,(s)=>{ mock.listen=s; });
+document.getElementById("m1Next").addEventListener("click",()=>{ if(mock.stage===1) setStage(2); });
+
+buildQuiz("mReadQs",[
+  {q:"What is the main purpose of the notice?", opts:["To announce a rent increase","To inform tenants about temporary parking changes","To advertise the Gleason Street library","To schedule apartment inspections"], a:1},
+  {q:"How long is the garage expected to be closed?", opts:["Ten days","Six weeks","One month","Over the weekend"], a:0},
+  {q:"What must tenants display to park at the library lot?", opts:["Their lease agreement","A city parking pass","An orange permit","Their licence plate number"], a:2},
+  {q:"What should tenants with accessibility needs do?", opts:["Park at the library like everyone else","Contact the office by Thursday","Wait until the garage reopens","Call the city directly"], a:1}
+],"m2Next",null,(s)=>{ mock.read=s; });
+document.getElementById("m2Next").addEventListener("click",()=>{ if(mock.stage===2) setStage(3); });
+
+/* mock writing */
+const mwBox=document.getElementById("mWriteBox");
+mwBox.addEventListener("input",()=>document.getElementById("mWcNum").textContent=countWords(mwBox.value));
+let mwTimer=null;
+function startMockWriteTimer(){
+  let left=10*60;
+  mwTimer=setInterval(()=>{
+    left--;
+    const chip=document.getElementById("mWriteTimer");
+    chip.textContent="⏱ "+fmt(Math.max(left,0));
+    if(left<=60)chip.classList.add("warn");
+    if(left<=0){clearInterval(mwTimer);finishMockWriting();}
+  },1000);
+}
+function finishMockWriting(){
+  if(mwTimer)clearInterval(mwTimer);
+  const checks=writingChecks(mwBox.value,100,150).filter(c=>!c.label.startsWith("Opening")&&!c.label.startsWith("Closing"));
+  mock.words=countWords(mwBox.value);
+  mock.checks=checks.filter(c=>c.ok).length+"/"+checks.length;
+  setStage(4);
+}
+document.getElementById("m3Next").addEventListener("click",finishMockWriting);
+
+/* mock speaking */
+document.getElementById("mSpeakStart").addEventListener("click",function(){
+  this.style.display="none";
+  const tEl=document.getElementById("mSpeakTimer"), lEl=document.getElementById("mPhaseLabel");
+  let left=30; lEl.textContent="Preparation"; tEl.textContent=fmt(left);
+  const t1=setInterval(()=>{
+    left--; tEl.textContent=fmt(Math.max(left,0));
+    if(left<=0){
+      clearInterval(t1);
+      let l2=90; lEl.innerHTML='<span class="rec-dot"></span>Speak now'; tEl.textContent=fmt(l2);
+      const t2=setInterval(()=>{
+        l2--; tEl.textContent=fmt(Math.max(l2,0));
+        if(l2<=0){ clearInterval(t2); lEl.textContent="Done"; document.getElementById("m4Next").style.display=""; }
+      },1000);
+    }
+  },1000);
+});
+document.getElementById("m4Next").addEventListener("click",()=>{
+  recordScore("listening",pctToBand(mock.listen/3));
+  recordScore("reading",pctToBand(mock.read/4));
+  const passedChecks=+mock.checks.split("/")[0], totalChecks=+mock.checks.split("/")[1];
+  recordScore("writing",pctToBand(totalChecks?passedChecks/totalChecks:0));
+  const bandOf=(s,tot)=>{const p=s/tot;return p>=.85?"9+":p>=.68?"8":p>=.5?"7":"<7";};
+  document.getElementById("bandGrid").innerHTML=
+    '<div class="band-cell"><b>'+bandOf(mock.listen,3)+'</b><span>Listening · '+mock.listen+'/3</span></div>'+
+    '<div class="band-cell"><b>'+bandOf(mock.read,4)+'</b><span>Reading · '+mock.read+'/4</span></div>'+
+    '<div class="band-cell"><b>'+mock.checks+'</b><span>Writing · structure checks ('+mock.words+' words)</span></div>'+
+    '<div class="band-cell"><b>✓</b><span>Speaking · completed (self-review)</span></div>';
+  const strong = mock.listen/3 >= mock.read/4 ? "Listening" : "Reading";
+  const weak = strong==="Listening" ? "Reading" : "Listening";
+  document.getElementById("mockSummary").textContent =
+    "Strongest objective skill in this sample: "+strong+". Spend your next sessions on "+weak+", Writing, and Speaking.";
+  document.getElementById("mockWa").href="https://wa.me/"+WHATSAPP_NUMBER+"?text="+
+    encodeURIComponent("Hi! I just finished the Akash CELPIP mock test (Listening "+mock.listen+"/3, Reading "+mock.read+"/4). I'd like human feedback on my Writing and Speaking.");
+  setStage(5);
+});
+document.getElementById("mockRetry").addEventListener("click",()=>location.reload());
+
+/* start mock writing timer when stage 3 opens */
+const obsTarget=document.getElementById("m3");
+new MutationObserver(()=>{ if(obsTarget.classList.contains("on") && !mwTimer) startMockWriteTimer(); })
+  .observe(obsTarget,{attributes:true,attributeFilter:["class"]});
+
+
+
+
+
+
+
+
+/* ===== Section test selector menus: 15 tests for Reading/Listening/Writing/Speaking ===== */
+(function(){
+  const SECTIONS = ['reading','listening','writing','speaking'];
+  const TOTAL_TESTS = 15;
+  const $ = (id)=>document.getElementById(id);
+  const $$ = (sel,root=document)=>Array.from(root.querySelectorAll(sel));
+  const state = window.__sectionTestState || (window.__sectionTestState = {});
+
+  function ensureSectionSelectors(){
+    SECTIONS.forEach(sec=>{
+      const view = $('v-' + sec);
+      if(!view) return;
+      const wrap = view.querySelector('.wrap') || view.firstElementChild || view;
+      if(!wrap || wrap.dataset.testMenuReady) return;
+      wrap.dataset.testMenuReady = '1';
+
+      const selector = document.createElement('div');
+      selector.className = 'card section-test-selector';
+      selector.id = sec + 'TestSelector';
+      selector.style.marginBottom = '12px';
+      selector.innerHTML = '<h2 style="margin:0">'+sec.charAt(0).toUpperCase()+sec.slice(1)+'</h2>' +
+        '<p style="margin:6px 0 14px;color:#5A6068">Choose a test first.</p>' +
+        '<div class="section-test-grid" style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px"></div>';
+
+      const grid = selector.querySelector('.section-test-grid');
+      for(let i=1;i<=TOTAL_TESTS;i++){
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'btn ' + (i===1 ? 'btn-accent' : 'btn-ghost');
+        b.textContent = 'Test ' + i;
+        b.dataset.section = sec;
+        b.dataset.test = String(i);
+        b.addEventListener('click', ()=>openSectionTest(sec, i));
+        grid.appendChild(b);
+      }
+
+      const content = document.createElement('div');
+      content.className = 'section-test-content';
+      while (wrap.firstChild) content.appendChild(wrap.firstChild);
+      wrap.appendChild(selector);
+      wrap.appendChild(content);
+      content.style.display = 'none';
+    });
+  }
+
+  function updateSectionTitle(sec, testNum){
+    if(sec === 'reading'){
+      let head = $('readingTestTitle');
+      if(!head){
+        const wrap = $('v-reading')?.querySelector('.wrap');
+        if(wrap){
+          head = document.createElement('div');
+          head.id = 'readingTestTitle';
+          head.className = 'card';
+          head.style.marginBottom = '12px';
+          const selector = $('readingTestSelector');
+          if(selector) selector.insertAdjacentElement('afterend', head);
+          else wrap.prepend(head);
+        }
+      }
+      if(head) head.innerHTML = '<h2 style="margin:0">Test '+testNum+'</h2><p style="margin:6px 0 0;color:#5A6068">Reading practice test</p>';
+    }
+
+    if(sec !== 'reading'){
+      const view = $('v-' + sec);
+      const content = view?.querySelector('.section-test-content');
+      if(!content) return;
+      let head = content.querySelector('.dynamic-test-title');
+      if(!head){
+        head = document.createElement('div');
+        head.className = 'card dynamic-test-title';
+        head.style.marginBottom = '12px';
+        content.prepend(head);
+      }
+      head.innerHTML = '<h2 style="margin:0">Test '+testNum+'</h2><p style="margin:6px 0 0;color:#5A6068">'+sec.charAt(0).toUpperCase()+sec.slice(1)+' practice test</p>';
+    }
+  }
+
+  function showSectionSelector(sec){
+    const view = $('v-' + sec);
+    const selector = $(sec + 'TestSelector');
+    const content = view?.querySelector('.section-test-content');
+    if(selector) selector.style.display = 'block';
+    if(content) content.style.display = 'none';
+    const readHead = $('readingTestTitle');
+    if(sec === 'reading' && readHead) readHead.style.display = 'none';
+  }
+
+  function openSectionTest(sec, testNum){
+    state[sec] = testNum;
+    const view = $('v-' + sec);
+    const selector = $(sec + 'TestSelector');
+    const content = view?.querySelector('.section-test-content');
+    if(selector) selector.style.display = 'none';
+    if(content) content.style.display = 'block';
+    updateSectionTitle(sec, testNum);
+    const readHead = $('readingTestTitle');
+    if(sec === 'reading' && readHead) readHead.style.display = 'block';
+
+    if(sec === 'reading' && typeof window.showOnlyReadPart === 'function') window.showOnlyReadPart('rp1');
+    if(sec === 'reading' && typeof window.switchReadPart === 'function' && !window.showOnlyReadPart) window.switchReadPart('rp1');
+    if(sec !== 'reading' && typeof window.startViewTimer === 'function') window.startViewTimer(sec);
+    scrollTo({top:0});
+  }
+
+  function patchGo(){
+    if(typeof window.go !== 'function' || window.__testMenuGoPatched) return;
+    const originalGo = window.go;
+    window.__testMenuGoPatched = true;
+    window.go = function(v){
+      originalGo(v);
+      if(SECTIONS.includes(v)) showSectionSelector(v);
+    };
+  }
+
+  function init(){
+    ensureSectionSelectors();
+    patchGo();
+    SECTIONS.forEach(showSectionSelector);
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+
+
+
+/* ===== Professional test cards: 12 tests, score out of 12, no month names ===== */
+
+
+
+/* ===== Fix test card clicks, remove counts, hide score until attempted ===== */
+(function(){
+  const SECTIONS = ['reading','listening','writing','speaking'];
+  const TOTAL_TESTS = 12;
+  const $ = (id)=>document.getElementById(id);
+  const $$ = (sel,root=document)=>Array.from(root.querySelectorAll(sel));
+  const state = window.__sectionTestState || (window.__sectionTestState = {});
+
+  function currentReadStarter(){
+    if(typeof window.showOnlyReadPart === 'function') window.showOnlyReadPart('rp1');
+    else if(typeof window.switchReadPart === 'function') window.switchReadPart('rp1');
+  }
+
+  function buildSelector(sec){
+    const sel = $(sec + 'TestSelector');
+    if(!sel) return;
+    sel.style.display = 'block';
+    sel.innerHTML = '<h2 style="margin:0 0 8px 0">'+sec.charAt(0).toUpperCase()+sec.slice(1)+'</h2><p style="margin:0 0 14px;color:#5A6068">Choose a practice test.</p><div class="pro-test-grid"></div>';
+    sel.style.padding = '0';
+    sel.style.border = '0';
+    sel.style.boxShadow = 'none';
+    sel.style.background = 'transparent';
+    const grid = sel.querySelector('.pro-test-grid');
+    grid.style.display = 'grid';
+    grid.style.gridTemplateColumns = 'repeat(2,minmax(0,1fr))';
+    grid.style.gap = '12px';
+    for(let i=1;i<=TOTAL_TESTS;i++){
+      const card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'pro-test-card';
+      card.style.textAlign = 'left';
+      card.style.padding = '18px';
+      card.style.border = '1px solid #cfd8d3';
+      card.style.borderRadius = '18px';
+      card.style.background = '#fff';
+      card.style.cursor = 'pointer';
+      card.style.display = 'block';
+      card.innerHTML = '<div style="font-size:14px;font-weight:700;color:#29405a;line-height:1.25">'+sec.charAt(0).toUpperCase()+sec.slice(1)+' Practice Test '+i+'</div>';
+      card.addEventListener('click', ()=>openTest(sec, i));
+      grid.appendChild(card);
+    }
+  }
+
+  function updateHeader(sec, testNum){
+    const view = $('v-' + sec);
+    const content = view?.querySelector('.section-test-content');
+    if(!content) return;
+    let head = content.querySelector('.dynamic-test-title');
+    if(!head){
+      head = document.createElement('div');
+      head.className = 'card dynamic-test-title';
+      head.style.marginBottom = '12px';
+      content.prepend(head);
+    }
+    head.innerHTML = '<h2 style="margin:0">'+sec.charAt(0).toUpperCase()+sec.slice(1)+' Practice Test '+testNum+'</h2>';
+  }
+
+  function hideReadingScore(){
+    const score = $('readingFinalScore');
+    if(score) score.style.display = 'none';
+  }
+
+  function openTest(sec, testNum){
+    state[sec] = testNum;
+    const view = $('v-' + sec);
+    const selector = $(sec + 'TestSelector');
+    const content = view?.querySelector('.section-test-content');
+    if(selector) selector.style.display = 'none';
+    if(content) content.style.display = 'block';
+    updateHeader(sec, testNum);
+    if(sec === 'reading'){
+      const oldHead = $('readingTestTitle');
+      if(oldHead) oldHead.style.display = 'none';
+      hideReadingScore();
+      currentReadStarter();
+    }
+    if(sec !== 'reading' && typeof window.startViewTimer === 'function') window.startViewTimer(sec);
+    scrollTo({top:0, behavior:'smooth'});
+  }
+
+  window.openTest = openTest;
+
+  function patchNavigation(){
+    if(typeof window.go !== 'function' || window.__practiceNavPatched) return;
+    const original = window.go;
+    window.__practiceNavPatched = true;
+    window.go = function(v){
+      original(v);
+      if(SECTIONS.includes(v)){
+        const view = $('v-' + v);
+        const selector = $(v + 'TestSelector');
+        const content = view?.querySelector('.section-test-content');
+        if(selector) selector.style.display = 'block';
+        if(content) content.style.display = 'none';
+        if(v === 'reading') hideReadingScore();
+      }
+    };
+  }
+
+  function patchFinishScoreVisibility(){
+    if(window.__finishScorePatched) return;
+    window.__finishScorePatched = true;
+    const prev = window.showFinalReadingScore;
+    if(typeof prev === 'function'){
+      window.showFinalReadingScore = function(){
+        prev();
+        const score = $('readingFinalScore');
+        if(score) score.style.display = 'block';
+      };
+    }
+  }
+
+  function init(){
+    SECTIONS.forEach(buildSelector);
+    patchNavigation();
+    patchFinishScoreVisibility();
+    hideReadingScore();
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+
+
+
+/* ===== Attempted/completed markers for tests ===== */
+(function(){
+  const SECTIONS = ['reading','listening','writing','speaking'];
+  const KEY = 'akash_celpip_attempted_tests_v1';
+  const $ = (id)=>document.getElementById(id);
+  const $$ = (sel,root=document)=>Array.from(root.querySelectorAll(sel));
+
+  function loadAttempts(){
+    try { return JSON.parse(localStorage.getItem(KEY) || '{}') || {}; }
+    catch(e){ return {}; }
+  }
+  function saveAttempts(data){
+    try { localStorage.setItem(KEY, JSON.stringify(data)); } catch(e){}
+  }
+  function markAttempt(section, testNum, status){
+    const data = loadAttempts();
+    data[section] = data[section] || {};
+    const prev = data[section][testNum] || {};
+    data[section][testNum] = { status: status || prev.status || 'attempted', updatedAt: Date.now() };
+    saveAttempts(data);
+    renderAttemptBadges();
+  }
+
+  function badgeHtml(status){
+    if(status === 'completed'){
+      return '<div class="attempt-badge" style="margin-top:10px;display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;background:#e7f5ec;color:#1f6b42;font-size:12px;font-weight:700">✓ Completed</div>';
+    }
+    return '<div class="attempt-badge" style="margin-top:10px;display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:999px;background:#eef2f7;color:#44556a;font-size:12px;font-weight:700">Attempted</div>';
+  }
+
+  function renderAttemptBadges(){
+    const data = loadAttempts();
+    $$('.pro-test-card').forEach(card=>{
+      const section = card.dataset.section;
+      const testNum = card.dataset.test;
+      card.querySelectorAll('.attempt-badge').forEach(x=>x.remove());
+      const info = data?.[section]?.[testNum];
+      if(info && info.status){
+        card.insertAdjacentHTML('beforeend', badgeHtml(info.status));
+      }
+    });
+  }
+
+  function patchOpenTest(){
+    if(typeof window.openTest !== 'function' || window.__attemptOpenPatched) return;
+    const orig = window.openTest;
+    window.__attemptOpenPatched = true;
+    window.openTest = function(section, testNum){
+      markAttempt(section, testNum, 'attempted');
+      return orig.apply(this, arguments);
+    };
+  }
+
+  function patchReadingFinish(){
+    if(window.__attemptFinishPatched) return;
+    const orig = window.showFinalReadingScore;
+    if(typeof orig !== 'function') return;
+    window.__attemptFinishPatched = true;
+    window.showFinalReadingScore = function(){
+      const result = orig.apply(this, arguments);
+      const testNum = (window.__sectionTestState && window.__sectionTestState.reading) || 1;
+      markAttempt('reading', String(testNum), 'completed');
+      return result;
+    };
+  }
+
+  function init(){
+    patchOpenTest();
+    patchReadingFinish();
+    renderAttemptBadges();
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+
+
+
+/* ===== Reading mode modal + CELPIP timings/question counts ===== */
+(function(){
+  const $ = (id)=>document.getElementById(id);
+  const $$ = (sel,root=document)=>Array.from(root.querySelectorAll(sel));
+
+  const READING_SPEC = {
+    total: '55–60 minutes',
+    practice: {label:'Practice Task', q:1, minutes:1},
+    parts: [
+      {id:'rp1', title:'Reading Correspondence', q:11, minutes:11},
+      {id:'rp2', title:'Reading to Apply a Diagram', q:8, minutes:9},
+      {id:'rp3', title:'Reading for Information', q:9, minutes:10},
+      {id:'rp4', title:'Reading for Viewpoints', q:10, minutes:13}
+    ]
+  };
+
+  function ensureReadingModeModal(){
+    if ($('readingModeModal')) return;
+    const modal = document.createElement('div');
+    modal.id = 'readingModeModal';
+    modal.style.cssText = 'position:fixed;inset:0;background:rgba(20,28,38,.42);display:none;align-items:center;justify-content:center;z-index:9999;padding:18px;';
+    modal.innerHTML = `
+      <div style="background:#f7f7f4;width:min(1080px,96vw);border-radius:22px;padding:28px 28px 20px;position:relative;box-shadow:0 18px 60px rgba(0,0,0,.18)">
+        <button id="readingModeClose" style="position:absolute;right:16px;top:12px;border:none;background:none;font-size:34px;line-height:1;cursor:pointer;color:#44556a">&times;</button>
+        <div style="text-align:center;font-size:32px;font-weight:800;color:#2f7a47;margin-bottom:18px">Choose a mode</div>
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px">
+          <div style="background:#fff;border:1px solid #e4e6e2;border-radius:22px;padding:28px 28px 24px;min-height:420px">
+            <div style="font-size:22px;font-weight:800;color:#29405a;text-align:center;margin-bottom:10px">Practice mode</div>
+            <p style="margin:0 0 18px;color:#56606a;font-size:15px;line-height:1.5">Practice mode is suitable for improving accuracy and time spent on each part.</p>
+            <div style="font-weight:800;color:#29405a;margin-bottom:8px">Reading information</div>
+            <div style="color:#3d4b57;line-height:1.9;font-size:15px">
+              <div>Practice task (1 question)</div>
+              <div>Part 1 (11 questions)</div>
+              <div>Part 2 (8 questions)</div>
+              <div>Part 3 (9 questions)</div>
+              <div>Part 4 (10 questions)</div>
+            </div>
+            <div style="font-weight:800;color:#29405a;margin:18px 0 8px">Choose a time limit</div>
+            <select id="readingPracticeTime" style="width:100%;height:46px;border:1px solid #d6dbd6;border-radius:999px;padding:0 16px;background:#fff;font-size:15px">
+              <option value="55">55 mins</option>
+              <option value="60" selected>60 mins</option>
+            </select>
+            <div style="text-align:center;margin-top:28px"><button id="readingPracticeStart" class="btn btn-accent" style="min-width:150px">Start Now</button></div>
+          </div>
+          <div style="background:#fff;border:1px solid #e4e6e2;border-radius:22px;padding:28px 28px 24px;min-height:420px">
+            <div style="font-size:22px;font-weight:800;color:#29405a;text-align:center;margin-bottom:10px">Simulation test mode</div>
+            <p style="margin:0 0 18px;color:#56606a;font-size:15px;line-height:1.5">Simulation test mode is the best option to experience the real CELPIP reading flow on computer.</p>
+            <div style="font-weight:800;color:#29405a;margin-bottom:8px">Test information</div>
+            <div style="color:#3d4b57;line-height:1.9;font-size:15px">
+              <div>Full reading section (${READING_SPEC.total})</div>
+              <div>Practice task: 1 question</div>
+              <div>Part 1: 11 questions</div>
+              <div>Part 2: 8 questions</div>
+              <div>Part 3: 9 questions</div>
+              <div>Part 4: 10 questions</div>
+            </div>
+            <div style="text-align:center;margin-top:102px"><button id="readingSimStart" class="btn btn-accent" style="min-width:150px">Start Now</button></div>
+          </div>
+        </div>
+      </div>`;
+    document.body.appendChild(modal);
+
+    $('readingModeClose').addEventListener('click', ()=>modal.style.display='none');
+    modal.addEventListener('click', (e)=>{ if(e.target === modal) modal.style.display='none'; });
+  }
+
+  function applyReadingSpec(mode){
+    const t1 = $('readTimer'); if (t1) { t1.dataset.minutes = READING_SPEC.parts[0].minutes; t1.textContent = 'Time remaining: ' + READING_SPEC.parts[0].minutes + ':00'; }
+    const t2 = $('rp2Timer'); if (t2) { t2.dataset.minutes = READING_SPEC.parts[1].minutes; t2.textContent = 'Time remaining: ' + READING_SPEC.parts[1].minutes + ':00'; }
+    const t3 = $('rp3Timer'); if (t3) { t3.dataset.minutes = READING_SPEC.parts[2].minutes; t3.textContent = 'Time remaining: ' + READING_SPEC.parts[2].minutes + ':00'; }
+    const t4 = $('rp4Timer'); if (t4) { t4.dataset.minutes = READING_SPEC.parts[3].minutes; t4.textContent = 'Time remaining: ' + READING_SPEC.parts[3].minutes + ':00'; }
+
+    const heads = {
+      rp1: 'Practice Test A — Reading Part 1: Reading Correspondence (11 questions)',
+      rp2: 'Practice Test A — Reading Part 2: Reading to Apply a Diagram (8 questions)',
+      rp3: 'Practice Test A — Reading Part 3: Reading for Information (9 questions)',
+      rp4: 'Practice Test A — Reading Part 4: Reading for Viewpoints (10 questions)'
+    };
+    Object.entries(heads).forEach(([id, txt])=>{
+      const part = $(id);
+      const strong = part && part.querySelector('.exam-head strong');
+      if (strong) strong.textContent = txt;
+    });
+
+    let info = $('readingSpecBanner');
+    if (!info) {
+      info = document.createElement('div');
+      info.id = 'readingSpecBanner';
+      info.className = 'card';
+      info.style.marginBottom = '12px';
+      const content = $('v-reading')?.querySelector('.section-test-content') || $('v-reading')?.querySelector('.wrap');
+      const title = content?.querySelector('.dynamic-test-title');
+      if (content && title) title.insertAdjacentElement('afterend', info);
+    }
+    if (info) {
+      info.innerHTML = '<div style="font-weight:800;color:#29405a;margin-bottom:6px">Reading setup</div>' +
+        '<div style="color:#5A6068;font-size:14px;line-height:1.7">Mode: ' + (mode === 'simulation' ? 'Simulation test mode' : 'Practice mode') +
+        ' · Total reading time: ' + (mode === 'practice' ? (($('readingPracticeTime')?.value || '60') + ' minutes') : READING_SPEC.total) +
+        ' · Practice task: 1 question · Part 1: 11 · Part 2: 8 · Part 3: 9 · Part 4: 10</div>';
+    }
+  }
+
+  function startReadingTest(testNum, mode){
+    const selector = $('readingTestSelector');
+    const view = $('v-reading');
+    const content = view?.querySelector('.section-test-content');
+    if (selector) selector.style.display = 'none';
+    if (content) content.style.display = 'block';
+    if (typeof updateHeader === 'function') updateHeader('reading', testNum);
+    else {
+      let head = content?.querySelector('.dynamic-test-title');
+      if (!head && content) {
+        head = document.createElement('div');
+        head.className = 'card dynamic-test-title';
+        head.style.marginBottom = '12px';
+        content.prepend(head);
+      }
+      if (head) head.innerHTML = '<h2 style="margin:0">Reading Practice Test ' + testNum + '</h2>';
+    }
+    const oldHead = $('readingTestTitle');
+    if (oldHead) oldHead.style.display = 'none';
+    const score = $('readingFinalScore');
+    if (score) score.style.display = 'none';
+    applyReadingSpec(mode);
+    if (typeof window.showOnlyReadPart === 'function') window.showOnlyReadPart('rp1');
+    else if (typeof window.switchReadPart === 'function') window.switchReadPart('rp1');
+    const modal = $('readingModeModal');
+    if (modal) modal.style.display = 'none';
+    scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function patchOpenTestForReading(){
+    if (window.__readingModePatched || typeof window.openTest !== 'function') return;
+    const orig = window.openTest;
+    window.__readingModePatched = true;
+    window.openTest = function(section, testNum){
+      if (section === 'reading') {
+        ensureReadingModeModal();
+        const modal = $('readingModeModal');
+        modal.style.display = 'flex';
+        $('readingPracticeStart').onclick = ()=>startReadingTest(testNum, 'practice');
+        $('readingSimStart').onclick = ()=>startReadingTest(testNum, 'simulation');
+        return;
+      }
+      return orig.apply(this, arguments);
+    };
+  }
+
+  function init(){
+    ensureReadingModeModal();
+    patchOpenTestForReading();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+
+
+
+/* ===== Hard override for reading test card modal ===== */
+(function(){
+  const $ = (id)=>document.getElementById(id);
+  const $$ = (sel,root=document)=>Array.from(root.querySelectorAll(sel));
+
+  function ensureReadingModeModalHard(){
+    if ($('readingModeModalHard')) return;
+    const modal = document.createElement('div');
+    modal.id = 'readingModeModalHard';
+    modal.style.cssText = 'position:fixed;inset:0;background:rgba(20,28,38,.42);display:none;align-items:center;justify-content:center;z-index:10001;padding:18px;';
+    modal.innerHTML = `
+      <div style="background:#f7f7f4;width:min(1080px,96vw);border-radius:22px;padding:28px 28px 20px;position:relative;box-shadow:0 18px 60px rgba(0,0,0,.18)">
+        <button id="readingModeCloseHard" style="position:absolute;right:16px;top:12px;border:none;background:none;font-size:34px;line-height:1;cursor:pointer;color:#44556a">&times;</button>
+        <div style="text-align:center;font-size:32px;font-weight:800;color:#2f7a47;margin-bottom:18px">Choose a mode</div>
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px">
+          <div style="background:#fff;border:1px solid #e4e6e2;border-radius:22px;padding:28px 28px 24px;min-height:420px">
+            <div style="font-size:22px;font-weight:800;color:#29405a;text-align:center;margin-bottom:10px">Practice mode</div>
+            <p style="margin:0 0 18px;color:#56606a;font-size:15px;line-height:1.5">Practice mode is suitable for improving accuracy and time spent on each part.</p>
+            <div style="font-weight:800;color:#29405a;margin-bottom:8px">Reading information</div>
+            <div style="color:#3d4b57;line-height:1.9;font-size:15px">
+              <div>Practice task (1 question)</div>
+              <div>Part 1 (11 questions)</div>
+              <div>Part 2 (8 questions)</div>
+              <div>Part 3 (9 questions)</div>
+              <div>Part 4 (10 questions)</div>
+            </div>
+            <div style="font-weight:800;color:#29405a;margin:18px 0 8px">Choose a time limit</div>
+            <select id="readingPracticeTimeHard" style="width:100%;height:46px;border:1px solid #d6dbd6;border-radius:999px;padding:0 16px;background:#fff;font-size:15px">
+              <option value="55">55 mins</option>
+              <option value="60" selected>60 mins</option>
+            </select>
+            <div style="text-align:center;margin-top:28px"><button id="readingPracticeStartHard" class="btn btn-accent" style="min-width:150px">Start Now</button></div>
+          </div>
+          <div style="background:#fff;border:1px solid #e4e6e2;border-radius:22px;padding:28px 28px 24px;min-height:420px">
+            <div style="font-size:22px;font-weight:800;color:#29405a;text-align:center;margin-bottom:10px">Simulation test mode</div>
+            <p style="margin:0 0 18px;color:#56606a;font-size:15px;line-height:1.5">Simulation test mode is the best option to experience the real CELPIP reading flow on computer.</p>
+            <div style="font-weight:800;color:#29405a;margin-bottom:8px">Test information</div>
+            <div style="color:#3d4b57;line-height:1.9;font-size:15px">
+              <div>Full reading section (55–60 minutes)</div>
+              <div>Practice task: 1 question</div>
+              <div>Part 1: 11 questions</div>
+              <div>Part 2: 8 questions</div>
+              <div>Part 3: 9 questions</div>
+              <div>Part 4: 10 questions</div>
+            </div>
+            <div style="text-align:center;margin-top:102px"><button id="readingSimStartHard" class="btn btn-accent" style="min-width:150px">Start Now</button></div>
+          </div>
+        </div>
+      </div>`;
+    document.body.appendChild(modal);
+    $('readingModeCloseHard').addEventListener('click', ()=>modal.style.display='none');
+    modal.addEventListener('click', e=>{ if(e.target===modal) modal.style.display='none'; });
+  }
+
+  function applyReadingHardSpec(mode){
+    const pairs = [['readTimer',11],['rp2Timer',9],['rp3Timer',10],['rp4Timer',13]];
+    pairs.forEach(([id,min])=>{
+      const el = $(id);
+      if(el){ el.dataset.minutes = String(min); el.textContent = 'Time remaining: ' + min + ':00'; }
+    });
+    const labels = {
+      rp1: 'Practice Test A — Reading Part 1: Reading Correspondence (11 questions)',
+      rp2: 'Practice Test A — Reading Part 2: Reading to Apply a Diagram (8 questions)',
+      rp3: 'Practice Test A — Reading Part 3: Reading for Information (9 questions)',
+      rp4: 'Practice Test A — Reading Part 4: Reading for Viewpoints (10 questions)'
+    };
+    Object.entries(labels).forEach(([id,txt])=>{
+      const strong = $(id)?.querySelector('.exam-head strong');
+      if(strong) strong.textContent = txt;
+    });
+  }
+
+  function startReadingFromHardModal(testNum){
+    const selector = $('readingTestSelector');
+    const view = $('v-reading');
+    const content = view?.querySelector('.section-test-content');
+    if(selector) selector.style.display = 'none';
+    if(content) content.style.display = 'block';
+    let head = content?.querySelector('.dynamic-test-title');
+    if(!head && content){
+      head = document.createElement('div');
+      head.className = 'card dynamic-test-title';
+      head.style.marginBottom = '12px';
+      content.prepend(head);
+    }
+    if(head) head.innerHTML = '<h2 style="margin:0">Reading Practice Test '+testNum+'</h2>';
+    const score = $('readingFinalScore');
+    if(score) score.style.display = 'none';
+    const oldHead = $('readingTestTitle');
+    if(oldHead) oldHead.style.display = 'none';
+    applyReadingHardSpec('practice');
+    if(typeof window.showOnlyReadPart === 'function') window.showOnlyReadPart('rp1');
+    else if(typeof window.switchReadPart === 'function') window.switchReadPart('rp1');
+    $('readingModeModalHard').style.display = 'none';
+    scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function bindReadingCardsHard(){
+    $$('button.pro-test-card[data-section="reading"]').forEach(card=>{
+      if(card.dataset.readingHardBound) return;
+      card.dataset.readingHardBound = '1';
+      card.addEventListener('click', (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        ensureReadingModeModalHard();
+        const testNum = card.dataset.test || '1';
+        $('readingModeModalHard').style.display = 'flex';
+        $('readingPracticeStartHard').onclick = ()=>startReadingFromHardModal(testNum);
+        $('readingSimStartHard').onclick = ()=>startReadingFromHardModal(testNum);
+      }, true);
+    });
+  }
+
+  function init(){
+    ensureReadingModeModalHard();
+    bindReadingCardsHard();
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init); else init();
+})();
+
+
+
+/* ===== Ultimate capture fix for reading test cards ===== */
+(function(){
+  const $ = (id)=>document.getElementById(id);
+  const $$ = (sel,root=document)=>Array.from(root.querySelectorAll(sel));
+  let activeReadingTest = '1';
+
+  function ensureUltimateModal(){
+    if ($('ultimateReadingModal')) return;
+    const modal = document.createElement('div');
+    modal.id = 'ultimateReadingModal';
+    modal.style.cssText = 'position:fixed;inset:0;background:rgba(20,28,38,.48);display:none;align-items:center;justify-content:center;z-index:20000;padding:18px;';
+    modal.innerHTML = `
+      <div style="background:#f7f7f4;width:min(1080px,96vw);border-radius:22px;padding:28px 28px 20px;position:relative;box-shadow:0 18px 60px rgba(0,0,0,.18)">
+        <button id="ultimateReadingModalClose" style="position:absolute;right:16px;top:12px;border:none;background:none;font-size:34px;line-height:1;cursor:pointer;color:#44556a">&times;</button>
+        <div style="text-align:center;font-size:32px;font-weight:800;color:#2f7a47;margin-bottom:18px">Choose a mode</div>
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px">
+          <div style="background:#fff;border:1px solid #e4e6e2;border-radius:22px;padding:28px 28px 24px;min-height:420px">
+            <div style="font-size:22px;font-weight:800;color:#29405a;text-align:center;margin-bottom:10px">Practice mode</div>
+            <p style="margin:0 0 18px;color:#56606a;font-size:15px;line-height:1.5">Practice mode is suitable for improving accuracy and time spent on each part.</p>
+            <div style="font-weight:800;color:#29405a;margin-bottom:8px">Reading information</div>
+            <div style="color:#3d4b57;line-height:1.9;font-size:15px">
+              <div>Practice task (1 question)</div>
+              <div>Part 1 (11 questions)</div>
+              <div>Part 2 (8 questions)</div>
+              <div>Part 3 (9 questions)</div>
+              <div>Part 4 (10 questions)</div>
+            </div>
+            <div style="font-weight:800;color:#29405a;margin:18px 0 8px">Choose a time limit</div>
+            <select id="ultimatePracticeTime" style="width:100%;height:46px;border:1px solid #d6dbd6;border-radius:999px;padding:0 16px;background:#fff;font-size:15px">
+              <option value="55">55 mins</option>
+              <option value="60" selected>60 mins</option>
+            </select>
+            <div style="text-align:center;margin-top:28px"><button id="ultimatePracticeStart" class="btn btn-accent" style="min-width:150px">Start Now</button></div>
+          </div>
+          <div style="background:#fff;border:1px solid #e4e6e2;border-radius:22px;padding:28px 28px 24px;min-height:420px">
+            <div style="font-size:22px;font-weight:800;color:#29405a;text-align:center;margin-bottom:10px">Simulation test mode</div>
+            <p style="margin:0 0 18px;color:#56606a;font-size:15px;line-height:1.5">Simulation test mode is the best option to experience the real CELPIP reading flow on computer.</p>
+            <div style="font-weight:800;color:#29405a;margin-bottom:8px">Test information</div>
+            <div style="color:#3d4b57;line-height:1.9;font-size:15px">
+              <div>Full reading section (55–60 minutes)</div>
+              <div>Practice task: 1 question</div>
+              <div>Part 1: 11 questions</div>
+              <div>Part 2: 8 questions</div>
+              <div>Part 3: 9 questions</div>
+              <div>Part 4: 10 questions</div>
+            </div>
+            <div style="text-align:center;margin-top:102px"><button id="ultimateSimStart" class="btn btn-accent" style="min-width:150px">Start Now</button></div>
+          </div>
+        </div>
+      </div>`;
+    document.body.appendChild(modal);
+    $('ultimateReadingModalClose').onclick = ()=>modal.style.display='none';
+    modal.addEventListener('click', e=>{ if(e.target===modal) modal.style.display='none'; });
+    $('ultimatePracticeStart').onclick = ()=>startReading(activeReadingTest, 'practice');
+    $('ultimateSimStart').onclick = ()=>startReading(activeReadingTest, 'simulation');
+  }
+
+  function applyReadingSetup(mode){
+    [['readTimer',11],['rp2Timer',9],['rp3Timer',10],['rp4Timer',13]].forEach(([id,min])=>{
+      const el = $(id);
+      if(el){ el.dataset.minutes = String(min); el.textContent = 'Time remaining: ' + min + ':00'; }
+    });
+    const labels = {
+      rp1: 'Practice Test A — Reading Part 1: Reading Correspondence (11 questions)',
+      rp2: 'Practice Test A — Reading Part 2: Reading to Apply a Diagram (8 questions)',
+      rp3: 'Practice Test A — Reading Part 3: Reading for Information (9 questions)',
+      rp4: 'Practice Test A — Reading Part 4: Reading for Viewpoints (10 questions)'
+    };
+    Object.entries(labels).forEach(([id,txt])=>{
+      const strong = $(id)?.querySelector('.exam-head strong');
+      if(strong) strong.textContent = txt;
+    });
+    let head = document.querySelector('#v-reading .section-test-content .dynamic-test-title');
+    if(!head){
+      const content = document.querySelector('#v-reading .section-test-content');
+      if(content){
+        head = document.createElement('div');
+        head.className = 'card dynamic-test-title';
+        head.style.marginBottom = '12px';
+        content.prepend(head);
+      }
+    }
+    if(head) head.innerHTML = '<h2 style="margin:0">Reading Practice Test '+activeReadingTest+'</h2>';
+  }
+
+  function startReading(testNum, mode){
+    activeReadingTest = String(testNum || activeReadingTest || '1');
+    const selector = $('readingTestSelector');
+    const content = document.querySelector('#v-reading .section-test-content');
+    if(selector) selector.style.display = 'none';
+    if(content) content.style.display = 'block';
+    const oldHead = $('readingTestTitle');
+    if(oldHead) oldHead.style.display = 'none';
+    const score = $('readingFinalScore');
+    if(score) score.style.display = 'none';
+    applyReadingSetup(mode);
+    if(typeof window.showOnlyReadPart === 'function') window.showOnlyReadPart('rp1');
+    else if(typeof window.switchReadPart === 'function') window.switchReadPart('rp1');
+    $('ultimateReadingModal').style.display = 'none';
+    window.__sectionTestState = window.__sectionTestState || {};
+    window.__sectionTestState.reading = activeReadingTest;
+    scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function openReadingModal(testNum){
+    activeReadingTest = String(testNum || '1');
+    ensureUltimateModal();
+    $('ultimateReadingModal').style.display = 'flex';
+  }
+
+  document.addEventListener('click', function(e){
+    const card = e.target.closest('button.pro-test-card[data-section="reading"]');
+    if(!card) return;
+    e.preventDefault();
+    e.stopPropagation();
+    if(e.stopImmediatePropagation) e.stopImmediatePropagation();
+    openReadingModal(card.dataset.test || '1');
+  }, true);
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', ensureUltimateModal); else ensureUltimateModal();
+})();
+
+
+
+/* ===== Reading result screen styled after uploaded sample ===== */
+(function(){
+  const $ = (id)=>document.getElementById(id);
+  const $$ = (sel,root=document)=>Array.from(root.querySelectorAll(sel));
+
+  function getElapsedFromTimers(){
+    const ids = ['readTimer','rp2Timer','rp3Timer','rp4Timer'];
+    let used = 0;
+    ids.forEach(id=>{
+      const el = $(id);
+      if(!el) return;
+      const mins = Number(el.dataset.minutes || 0);
+      const txt = (el.textContent || '').match(/(\d+):(\d+)/);
+      if(txt){
+        const remain = Number(txt[1]) + Number(txt[2])/60;
+        used += Math.max(0, mins - remain);
+      }
+    });
+    const mm = String(Math.floor(used)).padStart(2,'0');
+    const ss = String(Math.round((used % 1) * 60)).padStart(2,'0');
+    return mm + ':' + ss;
+  }
+
+  function collectReadingResults(){
+    const part1Key = ['in Vancouver.','going to Tokyo.','excited but a little nervous.','working in Japan.','Marco leaving for Tokyo.','are old friends.'];
+    const part1Qs = $$('#readQs .q');
+    let p1Correct = 0;
+    const p1Items = part1Key.map((ans, i)=>{
+      const q = part1Qs[i];
+      const chosen = q ? q.querySelector('.opt.sel') : null;
+      const user = chosen ? chosen.textContent.trim() : 'No answer';
+      const ok = user === ans;
+      if(ok) p1Correct++;
+      return {n:i+1, user, ans, ok};
+    });
+
+    function partDropdown(ids, answers, startN){
+      let correct = 0;
+      const items = ids.map((id, i)=>{
+        const el = $(id);
+        const user = el && el.value ? String(el.value).trim() : 'No answer';
+        const ans = String(answers[i]).trim();
+        const ok = user === ans;
+        if(ok) correct++;
+        return {n:startN+i, user, ans, ok};
+      });
+      return {correct, total:answers.length, items};
+    }
+
+    const p2 = partDropdown(['rp2q1','rp2q2','rp2q3','rp2q4'], ['least comfortable','the cheapest option','the scenic route','explore the city freely'], 7);
+    const p3 = partDropdown(['rp3q1','rp3q2','rp3q3','rp3q4','rp3q5','rp3q6','rp3q7','rp3q8','rp3q9'], ['B','A','C','D','C','E','D','A','A'], 11);
+    const p4 = partDropdown(['rp4q1','rp4q2','rp4q3','rp4q4','rp4q5','rp4q6','rp4q7','rp4q8','rp4q9','rp4q10'], ['a conventional teacher with an unconventional idea','combined physical activity with academic learning','initially opposed by the principal','exercise improves focus and memory','demonstrated improvements in both fitness and academics','combine exercise with academics','helps with attention','struggle most in the afternoon','allow it prior to exams','are exercising on bikes'], 20);
+
+    const totalCorrect = p1Correct + p2.correct + p3.correct + p4.correct;
+    const totalQuestions = part1Key.length + p2.total + p3.total + p4.total;
+    const score12 = totalQuestions ? Math.round((totalCorrect / totalQuestions) * 12) : 0;
+
+    return {
+      totalCorrect, totalQuestions, score12,
+      parts: [
+        {title:'Part 1', range:'Questions 1 - 6', correct:p1Correct, total:6, items:p1Items},
+        {title:'Part 2', range:'Questions 7 - 10', correct:p2.correct, total:p2.total, items:p2.items},
+        {title:'Part 3', range:'Questions 11 - 19', correct:p3.correct, total:p3.total, items:p3.items},
+        {title:'Part 4', range:'Questions 20 - 29', correct:p4.correct, total:p4.total, items:p4.items}
+      ]
+    };
+  }
+
+  function ensureReadingResultScreen(){
+    if($('readingResultScreen')) return $('readingResultScreen');
+    const view = $('v-reading');
+    const wrap = view ? view.querySelector('.wrap') : null;
+    if(!wrap) return null;
+    const box = document.createElement('div');
+    box.id = 'readingResultScreen';
+    box.style.display = 'none';
+    box.innerHTML = `
+      <div class="card" style="padding:24px;border-radius:24px;background:#fbfbf8">
+        <div style="font-size:13px;color:#68737d;margin-bottom:14px">Home / Reading / Result</div>
+        <h1 id="readingResultTitle" style="margin:0 0 8px;font-size:36px;line-height:1.1;color:#16202a">Reading Practice Test 1</h1>
+        <div style="display:flex;gap:24px;flex-wrap:wrap;color:#5a6570;font-size:14px;margin-bottom:22px">
+          <div id="readingResultPublished">Published on: 06 Jan 2017</div>
+          <div id="readingResultTaken">Tests taken: 2,658,289</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;margin:10px 0 18px">
+          <div style="width:58px;height:58px;border-radius:50%;background:#e7ebef;display:flex;align-items:center;justify-content:center;font-size:26px;color:#67727d">👤</div>
+          <div>
+            <div style="font-size:14px;color:#6a7480">User</div>
+            <div style="font-size:28px;font-weight:800;color:#16202a">akash ranu</div>
+          </div>
+        </div>
+        <div style="font-size:24px;font-weight:800;margin:8px 0 24px;color:#16202a">Your score is:</div>
+        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:center;margin-bottom:28px">
+          <div style="display:flex;justify-content:center"><div style="width:170px;height:170px;border:6px solid #e5e7ea;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:14px"><div style="font-size:15px;color:#404b56">Correct Answers</div><div id="readingMetricCorrect" style="font-size:34px;font-weight:800;color:#101820">0/29</div></div></div>
+          <div style="display:flex;justify-content:center"><div style="width:190px;height:190px;border-radius:50%;background:#dfeadf;display:flex;align-items:center;justify-content:center;font-size:64px;font-weight:800;color:#101820" id="readingMetricBand">0</div></div>
+          <div style="display:flex;justify-content:center"><div style="width:170px;height:170px;border:6px solid #e5e7ea;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:14px"><div style="font-size:15px;color:#404b56">Time Spent</div><div id="readingMetricTime" style="font-size:34px;font-weight:800;color:#101820">00:00</div><div style="font-size:14px;color:#66707a">(60:00)</div></div></div>
+        </div>
+        <div id="readingAnswerKeysBlock"></div>
+      </div>`;
+    wrap.appendChild(box);
+    return box;
+  }
+
+  function renderReadingResultScreen(){
+    const data = collectReadingResults();
+    const timeSpent = getElapsedFromTimers();
+    const screen = ensureReadingResultScreen();
+    if(!screen) return;
+
+    const currentTest = (window.__sectionTestState && window.__sectionTestState.reading) || '1';
+    $('readingResultTitle').textContent = 'Reading Practice Test ' + currentTest;
+    $('readingMetricCorrect').textContent = data.totalCorrect + '/' + data.totalQuestions;
+    $('readingMetricBand').textContent = String(data.score12);
+    $('readingMetricTime').textContent = timeSpent;
+
+    const keys = $('readingAnswerKeysBlock');
+    if(keys){
+      keys.innerHTML = '<h2 style="margin:8px 0 18px;font-size:28px;color:#16202a">Answer Keys</h2>' +
+        data.parts.map(part=>{
+          return '<div style="background:#fff;border:1px solid #e6e8eb;border-radius:18px;padding:18px 18px 14px;margin-bottom:16px">' +
+            '<div style="display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px"><div><div style="font-size:20px;font-weight:800;color:#16202a">'+part.title+'</div><div style="font-size:14px;color:#66707a">'+part.range+'</div></div><div style="font-size:18px;font-weight:800;color:#16202a">Correct answer: '+part.correct+'/'+part.total+'</div></div>' +
+            '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px">' +
+            part.items.map(item=>'<div style="border:1px solid '+(item.ok?'#b7dfc0':'#ead1d6')+';background:'+(item.ok?'#f1fbf3':'#fff7f8')+';border-radius:12px;padding:10px 12px"><div style="font-weight:800;color:#16202a">Q'+item.n+'</div><div style="font-size:13px;color:#5a6570;margin-top:4px">Your answer: '+item.user+'</div><div style="font-size:13px;color:#5a6570;margin-top:2px">Answer: '+item.ans+'</div></div>').join('') +
+            '</div></div>';
+        }).join('');
+    }
+
+    const content = document.querySelector('#v-reading .section-test-content');
+    if(content){
+      Array.from(content.children).forEach(ch=>{ if(ch.id !== 'readingResultScreen') ch.style.display = 'none'; });
+    }
+    screen.style.display = 'block';
+    screen.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  window.showFinalReadingScore = renderReadingResultScreen;
+
+  function patchRp4Finish(){
+    const rp4 = $('rp4');
+    if(!rp4) return;
+    const btn = rp4.querySelector('.exam-head .btn.btn-accent');
+    if(!btn) return;
+    btn.textContent = 'Finish Test';
+    btn.onclick = null;
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      renderReadingResultScreen();
+    });
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', patchRp4Finish); else patchRp4Finish();
+})();
+
+
+
+/* ===== CELPIP reading scoring fix ===== */
+(function(){
+  const $ = (id)=>document.getElementById(id);
+  const $$ = (sel,root=document)=>Array.from(root.querySelectorAll(sel));
+
+  function mapApproxCelpipReadingLevel(raw38){
+    if (raw38 >= 33) return '10-12';
+    if (raw38 >= 31) return '9';
+    if (raw38 >= 28) return '8';
+    if (raw38 >= 24) return '7';
+    if (raw38 >= 19) return '6';
+    if (raw38 >= 15) return '5';
+    if (raw38 >= 10) return '4';
+    if (raw38 >= 8) return '3';
+    return 'M';
+  }
+
+  function clbFromLevel(level){
+    if (level === '10-12') return 'CLB 10-12';
+    if (['9','8','7','6','5','4','3'].includes(level)) return 'CLB ' + level;
+    return 'Below CLB 3';
+  }
+
+  function getElapsedFromTimers(){
+    const ids = ['readTimer','rp2Timer','rp3Timer','rp4Timer'];
+    let used = 0;
+    ids.forEach(id=>{
+      const el = $(id);
+      if(!el) return;
+      const mins = Number(el.dataset.minutes || 0);
+      const txt = (el.textContent || '').match(/(\d+):(\d+)/);
+      if(txt){
+        const remain = Number(txt[1]) + Number(txt[2])/60;
+        used += Math.max(0, mins - remain);
+      }
+    });
+    const mm = String(Math.floor(used)).padStart(2,'0');
+    const ss = String(Math.round((used % 1) * 60)).padStart(2,'0');
+    return mm + ':' + ss;
+  }
+
+  function collectReadingResults(){
+    const part1Key = ['in Vancouver.','going to Tokyo.','excited but a little nervous.','working in Japan.','Marco leaving for Tokyo.','are old friends.'];
+    const part1Qs = $$('#readQs .q');
+    let p1Correct = 0;
+    const p1Items = part1Key.map((ans, i)=>{
+      const q = part1Qs[i];
+      const chosen = q ? q.querySelector('.opt.sel') : null;
+      const user = chosen ? chosen.textContent.trim() : 'No answer';
+      const ok = user === ans;
+      if(ok) p1Correct++;
+      return {n:i+1, user, ans, ok};
+    });
+
+    function partDropdown(ids, answers, startN){
+      let correct = 0;
+      const items = ids.map((id, i)=>{
+        const el = $(id);
+        const user = el && el.value ? String(el.value).trim() : 'No answer';
+        const ans = String(answers[i]).trim();
+        const ok = user === ans;
+        if(ok) correct++;
+        return {n:startN+i, user, ans, ok};
+      });
+      return {correct, total:answers.length, items};
+    }
+
+    const p2 = partDropdown(['rp2q1','rp2q2','rp2q3','rp2q4'], ['least comfortable','the cheapest option','the scenic route','explore the city freely'], 7);
+    const p3 = partDropdown(['rp3q1','rp3q2','rp3q3','rp3q4','rp3q5','rp3q6','rp3q7','rp3q8','rp3q9'], ['B','A','C','D','C','E','D','A','A'], 11);
+    const p4 = partDropdown(['rp4q1','rp4q2','rp4q3','rp4q4','rp4q5','rp4q6','rp4q7','rp4q8','rp4q9','rp4q10'], ['a conventional teacher with an unconventional idea','combined physical activity with academic learning','initially opposed by the principal','exercise improves focus and memory','demonstrated improvements in both fitness and academics','combine exercise with academics','helps with attention','struggle most in the afternoon','allow it prior to exams','are exercising on bikes'], 20);
+
+    const totalCorrect = p1Correct + p2.correct + p3.correct + p4.correct;
+    const totalQuestions = part1Key.length + p2.total + p3.total + p4.total;
+    const raw38 = totalQuestions ? Math.round((totalCorrect / totalQuestions) * 38) : 0;
+    const celpipLevel = mapApproxCelpipReadingLevel(raw38);
+    const clb = clbFromLevel(celpipLevel);
+
+    return {
+      totalCorrect, totalQuestions, raw38, celpipLevel, clb,
+      parts: [
+        {title:'Part 1', range:'Questions 1 - 6', correct:p1Correct, total:6, items:p1Items},
+        {title:'Part 2', range:'Questions 7 - 10', correct:p2.correct, total:p2.total, items:p2.items},
+        {title:'Part 3', range:'Questions 11 - 19', correct:p3.correct, total:p3.total, items:p3.items},
+        {title:'Part 4', range:'Questions 20 - 29', correct:p4.correct, total:p4.total, items:p4.items}
+      ]
+    };
+  }
+
+  function ensureReadingResultScreen(){
+    let box = $('readingResultScreen');
+    if(box) return box;
+    const view = $('v-reading');
+    const wrap = view ? view.querySelector('.wrap') : null;
+    if(!wrap) return null;
+    box = document.createElement('div');
+    box.id = 'readingResultScreen';
+    box.style.display = 'none';
+    box.innerHTML = `
+      <div class="card" style="padding:24px;border-radius:24px;background:#fbfbf8">
+        <div style="font-size:13px;color:#68737d;margin-bottom:14px">Home / Reading / Result</div>
+        <h1 id="readingResultTitle" style="margin:0 0 8px;font-size:36px;line-height:1.1;color:#16202a">Reading Practice Test 1</h1>
+        <div style="display:flex;gap:24px;flex-wrap:wrap;color:#5a6570;font-size:14px;margin-bottom:22px">
+          <div>Published on: 06 Jan 2017</div>
+          <div>Tests taken: 2,658,289</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;margin:10px 0 18px">
+          <div style="width:58px;height:58px;border-radius:50%;background:#e7ebef;display:flex;align-items:center;justify-content:center;font-size:26px;color:#67727d">👤</div>
+          <div>
+            <div style="font-size:14px;color:#6a7480">User</div>
+            <div style="font-size:28px;font-weight:800;color:#16202a">akash ranu</div>
+          </div>
+        </div>
+        <div style="font-size:24px;font-weight:800;margin:8px 0 24px;color:#16202a">Your CELPIP reading score:</div>
+        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:center;margin-bottom:18px">
+          <div style="display:flex;justify-content:center"><div style="width:170px;height:170px;border:6px solid #e5e7ea;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:14px"><div style="font-size:15px;color:#404b56">Correct Answers</div><div id="readingMetricCorrect" style="font-size:30px;font-weight:800;color:#101820">0/29</div><div id="readingMetricRaw38" style="font-size:14px;color:#66707a;margin-top:4px">Scaled raw: 0/38</div></div></div>
+          <div style="display:flex;justify-content:center"><div style="width:190px;height:190px;border-radius:50%;background:#dfeadf;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10px"><div style="font-size:48px;font-weight:800;color:#101820" id="readingMetricLevel">M</div><div style="font-size:14px;color:#50606b;margin-top:2px">CELPIP Level</div><div id="readingMetricClb" style="font-size:14px;color:#50606b;margin-top:4px">Below CLB 3</div></div></div>
+          <div style="display:flex;justify-content:center"><div style="width:170px;height:170px;border:6px solid #e5e7ea;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:14px"><div style="font-size:15px;color:#404b56">Time Spent</div><div id="readingMetricTime" style="font-size:34px;font-weight:800;color:#101820">00:00</div><div style="font-size:14px;color:#66707a">(55-60 min)</div></div></div>
+        </div>
+        <div style="font-size:13px;color:#66707a;margin:0 0 20px">Approximate CELPIP conversion based on scaled raw reading score.</div>
+        <div id="readingAnswerKeysBlock"></div>
+      </div>`;
+    wrap.appendChild(box);
+    return box;
+  }
+
+  function renderReadingResultScreenCelpip(){
+    const data = collectReadingResults();
+    const timeSpent = getElapsedFromTimers();
+    const screen = ensureReadingResultScreen();
+    if(!screen) return;
+    const currentTest = (window.__sectionTestState && window.__sectionTestState.reading) || '1';
+    $('readingResultTitle').textContent = 'Reading Practice Test ' + currentTest;
+    $('readingMetricCorrect').textContent = data.totalCorrect + '/' + data.totalQuestions;
+    $('readingMetricRaw38').textContent = 'Scaled raw: ' + data.raw38 + '/38';
+    $('readingMetricLevel').textContent = data.celpipLevel;
+    $('readingMetricClb').textContent = data.clb;
+    $('readingMetricTime').textContent = timeSpent;
+
+    const keys = $('readingAnswerKeysBlock');
+    if(keys){
+      keys.innerHTML = '<h2 style="margin:8px 0 18px;font-size:28px;color:#16202a">Answer Keys</h2>' +
+        data.parts.map(part=>'<div style="background:#fff;border:1px solid #e6e8eb;border-radius:18px;padding:18px 18px 14px;margin-bottom:16px"><div style="display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px"><div><div style="font-size:20px;font-weight:800;color:#16202a">'+part.title+'</div><div style="font-size:14px;color:#66707a">'+part.range+'</div></div><div style="font-size:18px;font-weight:800;color:#16202a">Correct answer: '+part.correct+'/'+part.total+'</div></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px">'+part.items.map(item=>'<div style="border:1px solid '+(item.ok?'#b7dfc0':'#ead1d6')+';background:'+(item.ok?'#f1fbf3':'#fff7f8')+';border-radius:12px;padding:10px 12px"><div style="font-weight:800;color:#16202a">Q'+item.n+'</div><div style="font-size:13px;color:#5a6570;margin-top:4px">Your answer: '+item.user+'</div><div style="font-size:13px;color:#5a6570;margin-top:2px">Answer: '+item.ans+'</div></div>').join('')+'</div></div>').join('');
+    }
+
+    const content = document.querySelector('#v-reading .section-test-content');
+    if(content){ Array.from(content.children).forEach(ch=>{ if(ch.id !== 'readingResultScreen') ch.style.display = 'none'; }); }
+    screen.style.display = 'block';
+    screen.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  window.showFinalReadingScore = renderReadingResultScreenCelpip;
+
+  const rp4 = $('rp4');
+  const btn = rp4 && rp4.querySelector('.exam-head .btn.btn-accent');
+  if(btn){
+    btn.textContent = 'Finish Test';
+    btn.onclick = null;
+    btn.addEventListener('click', function(e){ e.preventDefault(); renderReadingResultScreenCelpip(); });
+  }
+})();
+
+</script>
+<div class="exam-toast" id="pendingDialog"><div class="exam-dialog"><p>No answer(s) selected. On the official test, if you go to the next page, you will no longer be able to answer the question(s) on this page.</p><div><button class="btn btn-accent" id="keepWorking">Keep working on this page</button><button class="btn btn-ghost" id="skipNext">Skip and go to the next page</button></div></div></div>
+<script>
+(function(){
+  if (window.__readingCleanupPatchApplied) return;
+  window.__readingCleanupPatchApplied = true;
+
+  const $ = (id)=>document.getElementById(id);
+  const $$ = (sel, root=document)=>Array.from(root.querySelectorAll(sel));
+
+  function bandFromPct(pct){
+    return pct >= .85 ? 9 : pct >= .68 ? 8 : pct >= .50 ? 7 : pct >= .33 ? 6 : 5;
+  }
+
+  function renderResultBox(resultId, correct, total, title){
+    const r = $(resultId);
+    if(!r) return;
+    const pct = total ? correct / total : 0;
+    const band = bandFromPct(pct);
+    r.innerHTML = '<div class="result-box" style="margin-top:14px;background:' + (pct >= .68 ? 'var(--good-soft)' : 'var(--surface-2)') + '">' +
+      '<div class="big">' + correct + '/' + total + '</div>' +
+      '<div class="band">' + title + ' · Estimated band CLB ' + band + '</div>' +
+      '<p>Practice indicator only.</p></div>';
+  }
+
+  function scoreDropdownsNoRecord(partLabel, answers, ids, resultId){
+    let correct = 0;
+    ids.forEach((id, i)=>{
+      const sel = $(id);
+      if(!sel) return;
+      const val = String(sel.value || '').trim();
+      const ans = String(answers[i] || '').trim();
+      sel.disabled = true;
+      if(val === ans){
+        correct++;
+        sel.style.borderColor = '#0E8A5F';
+        sel.style.background = '#E4F4ED';
+      } else {
+        sel.style.borderColor = '#C92A3D';
+        sel.style.background = '#FBE9EC';
+      }
+    });
+    renderResultBox(resultId, correct, answers.length, partLabel + ' result');
+    return {correct, total: answers.length};
+  }
+
+  function scorePart1NoRecord(){
+    return scoreDropdownsNoRecord('Part 1', [
+      'in Vancouver.','going to Tokyo.','excited but a little nervous.',
+      'working in Japan.','Marco leaving for Tokyo.','are old friends.'
+    ], ['p1q1','p1q2','p1q3','p1q4','p1q5','p1q6'], 'readResult');
+  }
+
+  function scorePart2NoRecord(){
+    return scoreDropdownsNoRecord('Part 2', [
+      'least comfortable','the cheapest option','the scenic route','explore the city freely'
+    ], ['rp2q1','rp2q2','rp2q3','rp2q4'], 'rp2Result');
+  }
+
+  function scorePart3NoRecord(){
+    return scoreDropdownsNoRecord('Part 3', [
+      'B','A','C','D','C','E','D','A','A'
+    ], ['rp3q1','rp3q2','rp3q3','rp3q4','rp3q5','rp3q6','rp3q7','rp3q8','rp3q9'], 'rp3Result');
+  }
+
+  function scorePart4NoRecord(){
+    return scoreDropdownsNoRecord('Part 4', [
+      'a conventional teacher with an unconventional idea',
+      'combined physical activity with academic learning',
+      'initially opposed by the principal',
+      'exercise improves focus and memory',
+      'demonstrated improvements in both fitness and academics',
+      'combine exercise with academics',
+      'helps with attention',
+      'struggle most in the afternoon',
+      'allow it prior to exams',
+      'are exercising on bikes'
+    ], ['rp4q1','rp4q2','rp4q3','rp4q4','rp4q5','rp4q6','rp4q7','rp4q8','rp4q9','rp4q10'], 'rp4Result');
+  }
+
+  function computeOverallReading(){
+    const p1 = scorePart1NoRecord();
+    const p2 = scorePart2NoRecord();
+    const p3 = scorePart3NoRecord();
+    const p4 = scorePart4NoRecord();
+    return {
+      correct: p1.correct + p2.correct + p3.correct + p4.correct,
+      total: p1.total + p2.total + p3.total + p4.total
+    };
+  }
+
+  function ensureFinalReadingBox(){
+    let box = $('readingFinalScore');
+    if(box) return box;
+    const part4 = $('rp4');
+    if(!part4) return null;
+    box = document.createElement('div');
+    box.id = 'readingFinalScore';
+    box.className = 'card';
+    box.style.marginTop = '16px';
+    const target = part4.querySelector('.card.exam-shell') || part4;
+    target.insertAdjacentElement('afterend', box);
+    return box;
+  }
+
+  function finishReading(e){
+    if(e) e.preventDefault();
+    const total = computeOverallReading();
+    const pct = total.total ? total.correct / total.total : 0;
+    const band = bandFromPct(pct);
+    const box = ensureFinalReadingBox();
+    if(box){
+      box.innerHTML = '<div class="result-box" style="background:' + (pct >= .68 ? 'var(--good-soft)' : 'var(--surface-2)') + '">' +
+        '<div class="big">' + total.correct + '/' + total.total + '</div>' +
+        '<div class="band">Reading final score · Estimated band CLB ' + band + '</div>' +
+        '<p>This file now records one Reading score only after the full section is finished.</p></div>';
+    }
+    if(window.recordScore && !window.__readingSectionRecordedOnce){
+      window.__readingSectionRecordedOnce = true;
+      try { window.recordScore('reading', band); } catch(err) {}
+    }
+    showOnlyReadPart('rp4');
+    const finalBox = $('readingFinalScore');
+    if(finalBox) finalBox.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  function setSinglePartNav(id){
+    const nav = $('readPartNav');
+    if(!nav) return;
+    const labels = {rp1:'Part 1', rp2:'Part 2', rp3:'Part 3', rp4:'Part 4'};
+    nav.innerHTML = '<button class="btn btn-accent btn-sm rp-btn on" type="button">' + labels[id] + '</button>';
+  }
+
+  function showOnlyReadPart(id){
+    ['rp1','rp2','rp3','rp4'].forEach(pid=>{
+      const el = $(pid);
+      if(el) el.style.display = pid === id ? 'block' : 'none';
+    });
+    setSinglePartNav(id);
+    const timerEl = $(id === 'rp1' ? 'readTimer' : id + 'Timer');
+    if(typeof window.startCountdown === 'function' && timerEl) {
+      try { window.startCountdown(timerEl); } catch(err) {}
+    }
+    window.scrollTo({top:0});
+  }
+
+  function replaceWithCleanHandler(btn, handler){
+    if(!btn) return null;
+    const clone = btn.cloneNode(true);
+    btn.replaceWith(clone);
+    clone.removeAttribute('data-submit');
+    clone.removeAttribute('onclick');
+    clone.addEventListener('click', handler);
+    return clone;
+  }
+
+  function patchHeadButtons(){
+    const p1Head = $('rp1')?.querySelector('.exam-head .btn.btn-accent');
+    const p2Head = $('rp2')?.querySelector('.exam-head .btn.btn-accent');
+    const p3Head = $('rp3')?.querySelector('.exam-head .btn.btn-accent');
+    const p4Head = $('rp4')?.querySelector('.exam-head .btn.btn-accent');
+
+    replaceWithCleanHandler(p1Head, (e)=>{ e.preventDefault(); showOnlyReadPart('rp2'); });
+    replaceWithCleanHandler(p2Head, (e)=>{ e.preventDefault(); showOnlyReadPart('rp3'); });
+    replaceWithCleanHandler(p3Head, (e)=>{ e.preventDefault(); showOnlyReadPart('rp4'); });
+    const finalBtn = replaceWithCleanHandler(p4Head, finishReading);
+    if(finalBtn) finalBtn.textContent = 'Finish Reading';
+  }
+
+  function patchBackButtons(){
+    const map = {
+      rp1: null,
+      rp2: 'rp1',
+      rp3: 'rp2',
+      rp4: 'rp3'
+    };
+    Object.entries(map).forEach(([part, target])=>{
+      const wrap = $(part);
+      const btn = wrap?.querySelector('.exam-bottom .btn.btn-ghost');
+      if(!btn) return;
+      const clean = btn.cloneNode(true);
+      btn.replaceWith(clean);
+      clean.removeAttribute('onclick');
+      if(!target){
+        clean.style.display = 'none';
+      } else {
+        clean.textContent = 'BACK';
+        clean.addEventListener('click', (e)=>{ e.preventDefault(); showOnlyReadPart(target); });
+      }
+    });
+  }
+
+  function patchSubmitButtons(){
+    const p1 = $('p1Submit');
+    if(p1){
+      p1.onclick = null;
+      p1.addEventListener('click', (e)=>{ e.preventDefault(); scorePart1NoRecord(); });
+    }
+    const p2 = $('rp2Submit');
+    if(p2){
+      p2.onclick = null;
+      p2.addEventListener('click', (e)=>{ e.preventDefault(); scorePart2NoRecord(); });
+    }
+    const p3 = $('rp3')?.querySelector('button.btn.btn-accent.btn-sm');
+    if(p3){
+      p3.onclick = null;
+      p3.addEventListener('click', (e)=>{ e.preventDefault(); scorePart3NoRecord(); });
+    }
+    const p4 = $('rp4')?.querySelector('button.btn.btn-accent.btn-sm');
+    if(p4){
+      p4.onclick = null;
+      p4.addEventListener('click', (e)=>{ e.preventDefault(); scorePart4NoRecord(); });
+    }
+    /* scoreDropdowns override removed - using completReadingFix instead */
+  }
+
+  window.showOnlyReadPart = showOnlyReadPart;
+
+  function patchOpeners(){
+    ['openTest','openSectionTest'].forEach(name=>{
+      const orig = window[name];
+      if(typeof orig !== 'function' || orig.__readingWrapped) return;
+      const wrapped = function(){
+        const out = orig.apply(this, arguments);
+        setTimeout(applyReadingPatch, 0);
+        return out;
+      };
+      wrapped.__readingWrapped = true;
+      window[name] = wrapped;
+    });
+  }
+
+  function applyReadingPatch(){
+    patchHeadButtons();
+    patchBackButtons();
+    patchSubmitButtons();
+    showOnlyReadPart('rp1');
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', ()=>{ patchOpeners(); applyReadingPatch(); });
+  } else {
+    patchOpeners();
+    applyReadingPatch();
+  }
+})();
+</script>
+<script>
+/* data-rp-goto click delegation */
+document.addEventListener('click', function(e){
+  const btn = e.target.closest('[data-rp-goto]');
+  if(!btn) return;
+  const target = btn.dataset.rpGoto;
+  if(typeof window.showOnlyReadPart === 'function'){ window.showOnlyReadPart(target); }
+  else if(typeof window.switchReadPart === 'function'){ window.switchReadPart(target); }
+});
+</script>
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- RESULTS PAGE VIEW                                       -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<div class="view" id="v-results">
+<div class="wrap" style="max-width:720px;padding:40px 20px 80px">
+<!-- Back button -->
+<button class="btn btn-ghost btn-sm" id="resultsBackBtn" style="margin-bottom:28px">
+      ← Back to Home
+    </button>
+<!-- Header -->
+<span class="eyebrow">Your Score</span>
+<h1 id="resultsTitle" style="margin-bottom:6px">Section Results</h1>
+<p class="lead" id="resultsSubtitle">Here is how you did on this section.</p>
+<!-- KPI row: Correct / Total / Band / Time -->
+<div class="exam-kpis" id="resultsKpis" style="margin:24px 0 28px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+<div style="background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;text-align:center">
+<b id="resCorrect" style="display:block;font-size:1.9rem;line-height:1.1;color:var(--accent)">—</b>
+<span style="font-size:.76rem;color:var(--ink-2)">Correct</span>
+</div>
+<div style="background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;text-align:center">
+<b id="resTotal" style="display:block;font-size:1.9rem;line-height:1.1;color:var(--accent)">—</b>
+<span style="font-size:.76rem;color:var(--ink-2)">Total Questions</span>
+</div>
+<div style="background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;text-align:center">
+<b id="resBand" style="display:block;font-size:1.9rem;line-height:1.1;color:var(--accent)">—</b>
+<span style="font-size:.76rem;color:var(--ink-2)">CLB Band</span>
+</div>
+<div style="background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px;text-align:center">
+<b id="resPercent" style="display:block;font-size:1.9rem;line-height:1.1;color:var(--accent)">—</b>
+<span style="font-size:.76rem;color:var(--ink-2)">Score %</span>
+</div>
+</div>
+<!-- CELPIP Band scale bar -->
+<div class="card" style="margin-bottom:20px;padding:22px 20px">
+<div style="font-weight:600;font-size:.92rem;margin-bottom:14px">CELPIP Band Scale</div>
+<div id="resBandBar" style="display:flex;gap:4px;align-items:flex-end;height:56px">
+<!-- filled by JS -->
+</div>
+<div style="display:flex;gap:4px;margin-top:6px">
+<span style="flex:1;font-size:.7rem;color:var(--ink-2);text-align:center">4</span>
+<span style="flex:1;font-size:.7rem;color:var(--ink-2);text-align:center">5</span>
+<span style="flex:1;font-size:.7rem;color:var(--ink-2);text-align:center">6</span>
+<span style="flex:1;font-size:.7rem;color:var(--ink-2);text-align:center">7</span>
+<span style="flex:1;font-size:.7rem;color:var(--ink-2);text-align:center">8</span>
+<span style="flex:1;font-size:.7rem;color:var(--ink-2);text-align:center">9</span>
+<span style="flex:1;font-size:.7rem;color:var(--ink-2);text-align:center">10</span>
+<span style="flex:1;font-size:.7rem;color:var(--ink-2);text-align:center">11</span>
+<span style="flex:1;font-size:.7rem;color:var(--ink-2);text-align:center">12</span>
+</div>
+</div>
+<!-- Part breakdown -->
+<div class="card" id="resultsBreakdown" style="margin-bottom:20px;padding:22px 20px">
+<div style="font-weight:600;font-size:.92rem;margin-bottom:16px">Part-by-Part Breakdown</div>
+<div id="resPartRows"><!-- filled by JS --></div>
+</div>
+<!-- Band description -->
+<div class="card" id="resBandDesc" style="margin-bottom:20px;padding:22px 20px;background:var(--accent-soft);border-color:var(--accent)">
+<div id="resBandLabel" style="font-weight:700;font-size:1rem;margin-bottom:6px">CLB Band —</div>
+<p id="resBandText" style="font-size:.9rem;color:var(--ink-2);margin:0">Complete a section to see your band description.</p>
+</div>
+<!-- Disclaimer -->
+<p class="note">CELPIP band estimates are based on your percentage score. Official CELPIP results require the full test and certified raters. These scores are for practice guidance only.</p>
+<!-- Action buttons -->
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:20px">
+<button class="btn btn-accent" id="resReviewBtn" style="display:none">Review mistakes</button>
+<button class="btn btn-ghost" id="resTryAgainBtn">Try Again</button>
+<button class="btn btn-ghost" id="resGoHomeBtn">Back to Home</button>
+</div>
+</div>
+</div>
+<script>
+/* ══════════════════════════════════════
+   RESULTS PAGE CONTROLLER
+   ══════════════════════════════════════ */
+(function(){
+
+  const BAND_DESC = {
+    4:  {label:'CLB 4 – Developing', text:'You are building foundational skills. Focus on understanding key ideas in simple texts and audio.'},
+    5:  {label:'CLB 5 – Developing', text:'You can understand simple information. Work on identifying specific details and inferring meaning.'},
+    6:  {label:'CLB 6 – Adequate', text:'You have adequate skills for everyday communication. Practice skimming and scanning for efficiency.'},
+    7:  {label:'CLB 7 – Adequate', text:'You are approaching professional-level comprehension. Work on understanding implied meaning and complex vocabulary.'},
+    8:  {label:'CLB 8 – Competent', text:'You demonstrate competent skills. Focus on nuanced understanding and complex reading/listening passages.'},
+    9:  {label:'CLB 9 – Fluent', text:'Excellent work! You demonstrate near-fluent skills. Keep practising to build consistency.'},
+    10: {label:'CLB 10 – Advanced', text:'Outstanding performance! You are performing at a high advanced level. Aim for consistent accuracy under time pressure.'},
+  };
+
+  function bandFromPct(pct){
+    return pct >= .85 ? 10 : pct >= .75 ? 9 : pct >= .65 ? 8 : pct >= .55 ? 7 : pct >= .45 ? 6 : pct >= .33 ? 5 : 4;
+  }
+
+  function renderBandBar(band){
+    const bar = document.getElementById('resBandBar');
+    if(!bar) return;
+    const bands = [4,5,6,7,8,9,10,11,12];
+    const heights = [20,28,36,44,52,60,68,56,48]; // visual proportional heights
+    bar.innerHTML = bands.map((b,i)=>{
+      const active = b <= band;
+      const isCurrent = b === band;
+      const h = heights[i];
+      return '<div style="flex:1;height:'+h+'px;border-radius:4px 4px 0 0;background:'
+        +(isCurrent ? 'var(--accent)' : active ? 'var(--accent-soft);border:1.5px solid var(--accent)' : 'var(--line)')
+        +';position:relative;transition:background .4s">'
+        +(isCurrent ? '<div style="position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-size:.7rem;font-weight:700;color:var(--accent)">YOU</div>' : '')
+        +'</div>';
+    }).join('');
+  }
+
+  function renderPartRows(parts){
+    const box = document.getElementById('resPartRows');
+    if(!box) return;
+    box.innerHTML = parts.map(p=>{
+      const pct = p.total ? p.correct/p.total : 0;
+      const barW = Math.round(pct*100);
+      const color = pct>=.68?'var(--good)':pct>=.45?'var(--accent)':'var(--bad)';
+      return '<div style="margin-bottom:14px">'
+        +'<div style="display:flex;justify-content:space-between;font-size:.88rem;margin-bottom:5px">'
+        +'<span style="font-weight:600">'+p.label+'</span>'
+        +'<span style="color:var(--ink-2)">'+p.correct+'/'+p.total+' &nbsp;('+Math.round(pct*100)+'%)</span>'
+        +'</div>'
+        +'<div style="height:9px;border-radius:99px;background:var(--line);overflow:hidden">'
+        +'<div style="height:100%;width:'+barW+'%;background:'+color+';border-radius:99px;transition:width .8s"></div>'
+        +'</div></div>';
+    }).join('');
+  }
+
+  
+  window.__readingReviewUnlocked = false;
+  window.__openReadingReview = function(){
+    window.__readingReviewUnlocked = true;
+    var allViews = document.querySelectorAll('.view');
+    allViews.forEach(function(v){ v.classList.remove('on'); });
+    var rv = document.getElementById('v-reading');
+    if(rv) rv.classList.add('on');
+    var tab = document.querySelector('.tab[data-go="reading"]');
+    if(tab){
+      document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('on'); });
+      tab.classList.add('on');
+    }
+    // show part nav + answer key buttons after submission
+    var nav = document.getElementById('readPartNav');
+    if(nav){
+      nav.innerHTML = [
+        '<button class="btn btn-sm btn-accent rp-review-nav" data-part="rp1">Part 1</button>',
+        '<button class="btn btn-sm btn-ghost rp-review-nav" data-part="rp2">Part 2</button>',
+        '<button class="btn btn-sm btn-ghost rp-review-nav" data-part="rp3">Part 3</button>',
+        '<button class="btn btn-sm btn-ghost rp-review-nav" data-part="rp4">Part 4</button>'
+      ].join(' ');
+      nav.querySelectorAll('.rp-review-nav').forEach(function(b){
+        b.addEventListener('click', function(){
+          var target = this.dataset.part;
+          ['rp1','rp2','rp3','rp4'].forEach(function(id){
+            var el = document.getElementById(id);
+            if(el) el.style.display = id===target ? 'block' : 'none';
+          });
+          nav.querySelectorAll('.rp-review-nav').forEach(function(x){
+            x.classList.toggle('btn-accent', x.dataset.part===target);
+            x.classList.toggle('btn-ghost', x.dataset.part!==target);
+          });
+          window.scrollTo({top:0});
+        });
+      });
+    }
+    document.querySelectorAll('.ak-reveal-btn').forEach(function(btn){ btn.style.display=''; });
+    ['rp1','rp2','rp3','rp4'].forEach(function(id, idx){
+      var el = document.getElementById(id);
+      if(el) el.style.display = id==='rp1' ? 'block' : 'none';
+    });
+    window.scrollTo({top:0});
+  };
+
+  window.showResultsPage = function(opts){
+    // opts = { section, title, correct, total, parts:[{label,correct,total}], tryAgainFn }
+    const section = opts.section || 'Section';
+    const correct = opts.correct || 0;
+    const total   = opts.total   || 1;
+    const pct     = correct / total;
+    const band    = bandFromPct(pct);
+    const pctStr  = Math.round(pct*100) + '%';
+
+    document.getElementById('resultsTitle').textContent     = opts.title || section + ' Results';
+    document.getElementById('resultsSubtitle').textContent  = 'Practice Test A · ' + section;
+    document.getElementById('resCorrect').textContent       = correct;
+    document.getElementById('resTotal').textContent         = total;
+    document.getElementById('resBand').textContent          = 'CLB ' + band;
+    document.getElementById('resPercent').textContent       = pctStr;
+
+    const desc = BAND_DESC[band] || BAND_DESC[4];
+    document.getElementById('resBandLabel').textContent = desc.label;
+    document.getElementById('resBandText').textContent  = desc.text;
+
+    renderBandBar(band);
+    if(opts.parts && opts.parts.length) renderPartRows(opts.parts);
+
+    // Show results tab + navigate to results view
+    const tab = document.getElementById('resultsTab');
+    if(tab) tab.style.display = '';
+    // Navigate to results view directly
+    (function(){
+      var allViews = document.querySelectorAll('.view');
+      allViews.forEach(function(v){ v.classList.remove('on'); });
+      var resView = document.getElementById('v-results');
+      if(resView) resView.classList.add('on');
+      var allTabs = document.querySelectorAll('.tab');
+      allTabs.forEach(function(t){ t.classList.toggle('on', t.dataset.go==='results'); });
+      var resTab = document.getElementById('resultsTab');
+      if(resTab) resTab.style.display = '';
+      window.scrollTo({top:0});
+    })();
+
+    // Wire Review button
+    const reviewBtn = document.getElementById('resReviewBtn');
+    if(reviewBtn){
+      const isReading = (opts.section||'').toLowerCase() === 'reading';
+      reviewBtn.style.display = isReading ? '' : 'none';
+      reviewBtn.onclick = function(){ if(typeof window.__openReadingReview==='function') window.__openReadingReview(); };
+    }
+
+    // Wire Try Again
+    const tryBtn = document.getElementById('resTryAgainBtn');
+    if(tryBtn){
+      tryBtn.onclick = function(){
+        if(typeof opts.tryAgainFn === 'function') opts.tryAgainFn();
+        if(typeof go === 'function') go(opts.backView || 'reading');
+      };
+    }
+
+    // Wire Back to Home buttons
+    ['resultsBackBtn','resGoHomeBtn'].forEach(id=>{
+      const b = document.getElementById(id);
+      if(b) b.onclick = ()=>{ (function(){
+      var allViews = document.querySelectorAll('.view');
+      allViews.forEach(function(v){ v.classList.remove('on'); });
+      var homeView = document.getElementById('v-home');
+      if(homeView) homeView.classList.add('on');
+      window.scrollTo({top:0});
+    })(); };
+    });
+  };
+
+})();
+</script>
+<script>
+/* Hook Reading finish into Results page - REPLACED */
+(function(){
+  const origFinish = window.finishReading;
+  window.finishReading = function(e){
+    if(e && e.preventDefault) e.preventDefault();
+
+    // Collect per-part scores from DOM result boxes
+    function getPartScore(resultId, defaultTotal){
+      const el = document.getElementById(resultId);
+      if(!el) return {correct:0, total:defaultTotal};
+      const big = el.querySelector('.big');
+      if(!big) return {correct:0, total:defaultTotal};
+      const txt = big.textContent.trim(); // e.g. "4/6"
+      const parts = txt.split('/');
+      return {correct: parseInt(parts[0])||0, total: parseInt(parts[1])||defaultTotal};
+    }
+
+    const s1 = getPartScore('readResult', 6);
+    const s2 = getPartScore('rp2Result', 4);
+    const s3 = getPartScore('rp3Result', 9);
+    const s4 = getPartScore('rp4Result', 10);
+
+    const totalCorrect = s1.correct + s2.correct + s3.correct + s4.correct;
+    const totalQs = s1.total + s2.total + s3.total + s4.total;
+
+    window.unlockReadingAnswerKeys && window.unlockReadingAnswerKeys();
+    if(typeof window.showResultsPage === 'function'){
+      window.showResultsPage({
+        section: 'Reading',
+        title: 'Reading Results',
+        correct: totalCorrect,
+        total: totalQs,
+        parts: [
+          {label:'Part 1 – Reading Correspondence', correct:s1.correct, total:s1.total},
+          {label:'Part 2 – Reading to Apply a Diagram', correct:s2.correct, total:s2.total},
+          {label:'Part 3 – Reading for Information', correct:s3.correct, total:s3.total},
+          {label:'Part 4 – Reading for Viewpoints', correct:s4.correct, total:s4.total},
+        ],
+        backView: 'reading',
+        tryAgainFn: function(){
+          window.__readingSectionRecordedOnce = false;
+          window.__readingCleanupPatchApplied = false;
+        }
+      });
+    }
+  };
+})();
+</script>
+<script>
+/* Hook Listening finish into Results page */
+(function(){
+  const origRecord = window.recordScore;
+  let _lastListenScore = null;
+  window.recordScore = function(skill, band){
+    if(skill === 'listening'){
+      _lastListenScore = {band: band};
+    }
+    if(typeof origRecord === 'function') origRecord.apply(this, arguments);
+  };
+
+  // Intercept listenSubmit click to also trigger results page
+  document.addEventListener('click', function(e){
+    const btn = e.target.closest('#listenSubmit');
+    if(!btn) return;
+    setTimeout(function(){
+      const resultEl = document.getElementById('listenResult');
+      if(!resultEl) return;
+      const big = resultEl.querySelector('.big');
+      if(!big) return;
+      const txt = big.textContent.trim();
+      const parts = txt.split('/');
+      const correct = parseInt(parts[0]) || 0;
+      const total   = parseInt(parts[1]) || 5;
+      window.unlockReadingAnswerKeys && window.unlockReadingAnswerKeys();
+    if(typeof window.showResultsPage === 'function'){
+        window.showResultsPage({
+          section: 'Listening',
+          title: 'Listening Results',
+          correct: correct,
+          total: total,
+          parts: [
+            {label:'Part 1 – Listening to Problem Solving', correct:correct, total:total}
+          ],
+          backView: 'listening',
+          tryAgainFn: function(){ window.listenPlayed = false; }
+        });
+      }
+    }, 600);
+  });
+})();
+</script>
+<script>
+/* Unlock Answer Keys after Reading is fully submitted */
+window.unlockReadingAnswerKeys = function(){
+  // Show all Answer Key buttons
+  document.querySelectorAll('.ak-reveal-btn').forEach(function(btn){
+    btn.style.display = '';
+  });
+
+  // Add a "View All Answer Keys" prompt above Part 4's result
+  var rp4 = document.getElementById('rp4');
+  if(rp4 && !document.getElementById('akUnlockMsg')){
+    var msg = document.createElement('div');
+    msg.id = 'akUnlockMsg';
+    msg.className = 'note';
+    msg.style.cssText = 'margin-top:18px;background:var(--good-soft);border-color:var(--good);font-size:.9rem';
+    msg.innerHTML = '✅ <strong>Reading section complete!</strong> You can now view the Answer Key for each part by clicking the <em>Answer Key</em> button below each passage.';
+    var finalBox = document.getElementById('readingFinalScore') || rp4.querySelector('.card');
+    if(finalBox) finalBox.insertAdjacentElement('afterend', msg);
+  }
+};
+</script>
+<script>
+/* ══════════════════════════════════════════════════════════
+   COMPLETE READING FIX - track scores internally, show NOTHING
+   inline, show everything only on Results page after Part 4
+   ══════════════════════════════════════════════════════════ */
+(function(){
+  if(window.__completReadingFix) return;
+  window.__completReadingFix = true;
+
+  // Internal score store
+  var _scores = {p1:{correct:0,total:6}, p2:{correct:0,total:4}, p3:{correct:0,total:9}, p4:{correct:0,total:10}};
+
+  function checkDropdowns(answers, ids){
+    var correct = 0;
+    ids.forEach(function(id, i){
+      var sel = document.getElementById(id);
+      if(!sel) return;
+      var val = String(sel.value||'').trim();
+      var ans = String(answers[i]||'').trim();
+      sel.disabled = true;
+      if(val === ans){
+        correct++;
+        sel.style.borderColor = '#0E8A5F';
+        sel.style.background  = '#E4F4ED';
+      } else {
+        sel.style.borderColor = '#C92A3D';
+        sel.style.background  = '#FBE9EC';
+      }
+    });
+    return correct;
+  }
+
+  function checkRadioQuiz(containerId, answers){
+    var correct = 0;
+    var box = document.getElementById(containerId);
+    if(!box) return 0;
+    box.querySelectorAll('.opt').forEach(function(btn){
+      var qi = btn.dataset.q;
+      var oi = btn.dataset.o;
+      btn.disabled = true;
+      if(String(oi) === String(answers[qi])){
+        btn.classList.add('correct');
+      }
+      // mark user's wrong pick
+      if(btn.classList.contains('sel') && String(oi) !== String(answers[qi])){
+        btn.classList.add('wrong');
+      }
+      if(btn.classList.contains('sel') && String(oi) === String(answers[qi])){
+        correct++;
+      }
+    });
+    return correct;
+  }
+
+  // ── Part 1 Submit ──
+  var p1Btn = document.getElementById('p1Submit');
+  if(p1Btn){
+    p1Btn.onclick = null;
+    p1Btn.addEventListener('click', function(e){
+      e.preventDefault();
+      var ans = ['in Vancouver','going to Tokyo','excited but a little nervous',
+                 'rebuilding cities after disasters','Marco leaving for Tokyo',
+                 'are old friends who have not seen each other in a while'];
+      var ids = ['p1q1','p1q2','p1q3','p1q4','p1q5','p1q6'];
+      _scores.p1.correct = checkDropdowns(ans, ids);
+      _scores.p1.total   = ans.length;
+      // Hide result div - no inline result
+      var r = document.getElementById('readResult');
+      if(r) r.innerHTML = ''; r.style.display='none';
+      p1Btn.disabled = true;
+      p1Btn.textContent = 'Submitted ✓';
+    });
+  }
+
+  // ── Part 2 Submit ──
+  var p2Btn = document.getElementById('rp2Submit');
+  if(p2Btn){
+    p2Btn.onclick = null;
+    p2Btn.addEventListener('click', function(e){
+      e.preventDefault();
+      var ans = ['least comfortable','the cheapest option','the scenic route','explore the city freely'];
+      var ids = ['rp2q1','rp2q2','rp2q3','rp2q4'];
+      _scores.p2.correct = checkDropdowns(ans, ids);
+      _scores.p2.total   = ans.length;
+      var r = document.getElementById('rp2Result');
+      if(r) r.innerHTML = ''; r.style.display='none';
+      p2Btn.disabled = true;
+      p2Btn.textContent = 'Submitted ✓';
+    });
+  }
+
+  // ── Part 3 Submit ──
+  function patchP3(){
+    var rp3 = document.getElementById('rp3');
+    if(!rp3) return;
+    var p3Btn = rp3.querySelector('button.btn.btn-accent.btn-sm');
+    if(!p3Btn) return;
+    p3Btn.onclick = null;
+    p3Btn.addEventListener('click', function(e){
+      e.preventDefault();
+      var ans = ['B','A','C','D','C','E','D','A','A'];
+      var ids = ['rp3q1','rp3q2','rp3q3','rp3q4','rp3q5','rp3q6','rp3q7','rp3q8','rp3q9'];
+      _scores.p3.correct = checkDropdowns(ans, ids);
+      _scores.p3.total   = ans.length;
+      var r = document.getElementById('rp3Result');
+      if(r) r.innerHTML = ''; r.style.display='none';
+      p3Btn.disabled = true;
+      p3Btn.textContent = 'Submitted ✓';
+    });
+  }
+
+  // ── Part 4 Submit ──
+  function patchP4Submit(){
+    var rp4 = document.getElementById('rp4');
+    if(!rp4) return;
+    var p4Btn = rp4.querySelector('button.btn.btn-accent.btn-sm');
+    if(!p4Btn) return;
+    p4Btn.onclick = null;
+    p4Btn.addEventListener('click', function(e){
+      e.preventDefault();
+      var ans = [
+        'a conventional teacher with an unconventional idea',
+        'combined physical activity with academic learning',
+        'initially opposed by the principal',
+        'exercise improves focus and memory',
+        'demonstrated improvements in both fitness and academics',
+        'combine exercise with academics',
+        'helps with attention',
+        'struggle most in the afternoon',
+        'allow it prior to exams',
+        'are exercising on bikes'
+      ];
+      var ids = ['rp4q1','rp4q2','rp4q3','rp4q4','rp4q5','rp4q6','rp4q7','rp4q8','rp4q9','rp4q10'];
+      _scores.p4.correct = checkDropdowns(ans, ids);
+      _scores.p4.total   = ans.length;
+      var r = document.getElementById('rp4Result');
+      if(r) r.innerHTML = ''; r.style.display='none';
+      p4Btn.disabled = true;
+      p4Btn.textContent = 'Submitted ✓';
+    });
+  }
+
+  // ── Finish Reading button ──
+  function patchFinishBtn(){
+    var btn = document.getElementById('rp4FinishBtn');
+    if(!btn) return;
+    btn.onclick = null;
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      var totalCorrect = _scores.p1.correct + _scores.p2.correct + _scores.p3.correct + _scores.p4.correct;
+      var totalQs      = _scores.p1.total   + _scores.p2.total   + _scores.p3.total   + _scores.p4.total;
+
+      // Unlock answer keys only for review mode/results
+      window.__readingReviewUnlocked = true;
+
+      // Record score once
+      if(!window.__readingSectionRecordedOnce){
+        window.__readingSectionRecordedOnce = true;
+        var pct = totalCorrect/totalQs;
+        var band = pct>=.85?10:pct>=.75?9:pct>=.65?8:pct>=.55?7:pct>=.45?6:pct>=.33?5:4;
+        if(typeof window.recordScore==='function') try{window.recordScore('reading',band);}catch(ex){}
+      }
+
+      // Show Results Page
+      if(typeof window.showResultsPage === 'function'){
+        window.showResultsPage({
+          section: 'Reading',
+          title: 'Reading Results',
+          correct: totalCorrect,
+          total: totalQs,
+          parts: [
+            {label:'Part 1 – Correspondence',    correct:_scores.p1.correct, total:_scores.p1.total},
+            {label:'Part 2 – Apply a Diagram',   correct:_scores.p2.correct, total:_scores.p2.total},
+            {label:'Part 3 – For Information',   correct:_scores.p3.correct, total:_scores.p3.total},
+            {label:'Part 4 – For Viewpoints',    correct:_scores.p4.correct, total:_scores.p4.total},
+          ],
+          backView: 'reading',
+          tryAgainFn: function(){
+            window.__readingSectionRecordedOnce = false;
+            window.__completReadingFix = false;
+            _scores = {p1:{correct:0,total:6},p2:{correct:0,total:4},p3:{correct:0,total:9},p4:{correct:0,total:10}};
+          }
+        });
+      }
+    });
+  }
+
+  // Apply all patches on DOM ready
+  function applyAll(){
+    patchP3();
+    patchP4Submit();
+    patchFinishBtn();
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', applyAll);
+  } else {
+    applyAll();
+  }
+
+  // Also expose so openTest/openSectionTest can re-apply
+  window.__reapplyReadingFix = applyAll;
+
+})();
+</script>
+<style id="reading-cleanup-v10-style">
+  .read-part .ak-reveal-btn,
+  .read-part .ak-panel { display: none !important; }
+  .read-part[data-ak-submitted="1"] .ak-reveal-btn { display: inline-block !important; }
+  .read-part[data-ak-submitted="1"][data-ak-open="1"] .ak-panel { display: block !important; }
+  #readingCleanFinal.card { margin-top: 14px; }
+  #readingCleanFinal .rc-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:14px 0 18px; }
+  #readingCleanFinal .rc-metric { background:var(--surface-2); border:1px solid var(--line); border-radius:12px; padding:16px; text-align:center; }
+  #readingCleanFinal .rc-metric b { display:block; font-size:1.9rem; line-height:1; color:var(--accent); margin-bottom:8px; }
+  #readingCleanFinal .rc-row { padding:12px 0; border-bottom:1px solid var(--line); }
+  #readingCleanFinal .rc-row:last-child { border-bottom:0; }
+  #readingCleanFinal .rc-head { display:flex; justify-content:space-between; gap:14px; align-items:center; font-size:.94rem; }
+  #readingCleanFinal .rc-bar { height:10px; background:var(--line); border-radius:999px; overflow:hidden; margin-top:8px; }
+  #readingCleanFinal .rc-bar i { display:block; height:100%; background:var(--accent); width:0; }
+  @media (max-width:760px){ #readingCleanFinal .rc-grid { grid-template-columns:repeat(2,1fr); } }
+</style>
+<script id="reading-cleanup-v10-script">
+(function(){
+  if (window.readingCleanupV10) return;
+  window.readingCleanupV10 = true;
+
+  var PARTS = ['rp1','rp2','rp3','rp4'];
+  var ANSWERS = {
+    rp1: { ids:['p1q1','p1q2','p1q3','p1q4','p1q5','p1q6'], answers:['in Vancouver','going to Tokyo','excited but a little nervous','rebuilding cities after disasters','Marco leaving for Tokyo','are old friends who have not seen each other in a while'], resultId:'readResult', label:'Part 1 – Correspondence' },
+    rp2: { ids:['rp2q1','rp2q2','rp2q3','rp2q4'], answers:['least comfortable','the cheapest option','the scenic route','explore the city freely'], resultId:'rp2Result', label:'Part 2 – Apply a Diagram' },
+    rp3: { ids:['rp3q1','rp3q2','rp3q3','rp3q4','rp3q5','rp3q6','rp3q7','rp3q8','rp3q9'], answers:['B','A','C','D','C','E','D','A','A'], resultId:'rp3Result', label:'Part 3 – For Information' },
+    rp4: { ids:['rp4q1','rp4q2','rp4q3','rp4q4','rp4q5','rp4q6','rp4q7','rp4q8','rp4q9','rp4q10'], answers:['a conventional teacher with an unconventional idea','combined physical activity with academic learning','initially opposed by the principal','exercise improves focus and memory','demonstrated improvements in both fitness and academics','combine exercise with academics','helps with attention','struggle most in the afternoon','allow it prior to exams','are exercising on bikes'], resultId:'rp4Result', label:'Part 4 – For Viewpoints' }
+  };
+
+  function byId(id){ return document.getElementById(id); }
+  function q(sel, root){ return (root || document).querySelector(sel); }
+  function qa(sel, root){ return Array.from((root || document).querySelectorAll(sel)); }
+  function txt(el){ return ((el && (el.textContent || el.innerText)) || '').replace(/\s+/g,' ').trim(); }
+  function state(){
+    if (!window.__readingCleanupState) window.__readingCleanupState = { scores:{}, completeRecorded:false };
+    return window.__readingCleanupState;
+  }
+  function pctToBand(p){ return p >= .99 ? 10 : p >= .85 ? 9 : p >= .68 ? 8 : p >= .5 ? 7 : p >= .33 ? 6 : 5; }
+  function bandLabel(p){ return 'CLB ' + pctToBand(p); }
+  function partEl(pid){ return byId(pid); }
+  function activePart(){
+    for (var i=0;i<PARTS.length;i++) {
+      var el = partEl(PARTS[i]);
+      if (el && el.style.display !== 'none') return PARTS[i];
+    }
+    return 'rp1';
+  }
+  function hideLegacyReadingResults(){
+    var markers = ['Reading Results','Part-by-Part Breakdown','CELPIP Band Scale'];
+    qa('h1,h2,h3,h4,div,p,span,strong,b').forEach(function(node){
+      var t = txt(node);
+      if (!markers.includes(t)) return;
+      var box = node.closest('.card') || node.parentElement;
+      if (box && !box.id) box.style.display = 'none';
+    });
+  }
+  function cleanResultBox(pid){
+    var res = byId(ANSWERS[pid].resultId);
+    if (!res) return;
+    res.style.display = 'block';
+  }
+  function resetReading(){
+    var st = state();
+    st.scores = {};
+    st.completeRecorded = false;
+    PARTS.forEach(function(pid){
+      var p = partEl(pid); if (!p) return;
+      p.dataset.akSubmitted = '0';
+      p.dataset.akOpen = '0';
+      p.dataset.scored = '0';
+      var panel = q('.ak-panel', p); if (panel) panel.classList.remove('open');
+      var btn = q('.ak-reveal-btn', p);
+      if (btn) { btn.textContent = 'Answer Key'; btn.removeAttribute('onclick'); }
+      var cfg = ANSWERS[pid];
+      cfg.ids.forEach(function(id){
+        var el = byId(id);
+        if (!el) return;
+        el.disabled = false;
+        el.style.borderColor = '';
+        el.style.background = '';
+      });
+      var res = byId(cfg.resultId);
+      if (res) { res.innerHTML = ''; res.style.display = 'none'; }
+    });
+    var final = byId('readingCleanFinal');
+    if (final) final.remove();
+    hideLegacyReadingResults();
+  }
+  function scorePart(pid){
+    var cfg = ANSWERS[pid];
+    if (!cfg) return {correct:0,total:0,pct:0};
+    var correct = 0;
+    cfg.ids.forEach(function(id, i){
+      var el = byId(id); if (!el) return;
+      var val = (el.value || '').trim();
+      el.disabled = true;
+      if (val === cfg.answers[i]) {
+        correct++;
+        el.style.borderColor = '#0E8A5F';
+        el.style.background = '#E4F4ED';
+      } else {
+        el.style.borderColor = '#C92A3D';
+        el.style.background = '#FBE9EC';
+      }
+      el.classList.add('answered');
+    });
+    var total = cfg.answers.length;
+    var pct = total ? correct/total : 0;
+    state().scores[pid] = { correct: correct, total: total, pct: pct };
+    var res = byId(cfg.resultId);
+    if (res) {
+      res.style.display = 'block';
+      res.innerHTML = '<div class="result-box" style="margin-top:14px;background:' + (pct >= .68 ? 'var(--good-soft)' : 'var(--surface-2)') + '"><div class="big">' + correct + '/' + total + '</div><div class="band">Estimated band ' + bandLabel(pct) + '</div></div>';
+    }
+    var p = partEl(pid);
+    if (p) {
+      p.dataset.akSubmitted = '1';
+      p.dataset.akOpen = '1';
+      p.dataset.scored = '1';
+    }
+    PARTS.forEach(function(other){ if (other !== pid) { var po = partEl(other); if (po) po.dataset.akOpen = '0'; } });
+    return state().scores[pid];
+  }
+  function scoreAllParts(){ PARTS.forEach(function(pid){ scorePart(pid); }); }
+  function totalData(){
+    var st = state();
+    var totalCorrect = 0, totalQs = 0;
+    PARTS.forEach(function(pid){
+      var s = st.scores[pid];
+      if (!s) return;
+      totalCorrect += s.correct;
+      totalQs += s.total;
+    });
+    var pct = totalQs ? totalCorrect/totalQs : 0;
+    return { correct: totalCorrect, total: totalQs, pct: pct, band: pctToBand(pct) };
+  }
+  function markReadingCompleted(){
+    try {
+      var data = JSON.parse(localStorage.getItem('akashcelpipattemptedtestsv1') || '{}');
+      if (!data.reading) data.reading = {};
+      var testNum = (window.sectionTestState && window.sectionTestState.reading) || 1;
+      data.reading[String(testNum)] = { status: 'completed', updatedAt: Date.now() };
+      localStorage.setItem('akashcelpipattemptedtestsv1', JSON.stringify(data));
+      if (typeof window.renderAttemptBadges === 'function') window.renderAttemptBadges();
+    } catch (e) {}
+  }
+  function renderCleanFinal(){
+    hideLegacyReadingResults();
+    var data = totalData();
+    var wrap = q('#v-reading .wrap') || q('#v-reading');
+    if (!wrap) return data;
+    var card = byId('readingCleanFinal');
+    if (!card) {
+      card = document.createElement('div');
+      card.id = 'readingCleanFinal';
+      card.className = 'card';
+      var host = q('#rp4 .exam-bottom') || wrap;
+      if (host && host.parentNode) host.parentNode.insertBefore(card, host.nextSibling);
+      else wrap.appendChild(card);
+    }
+    var rows = PARTS.map(function(pid){
+      var s = state().scores[pid] || {correct:0,total:ANSWERS[pid].answers.length,pct:0};
+      var pct100 = Math.round((s.pct || 0)*100);
+      return '<div class="rc-row"><div class="rc-head"><span>' + ANSWERS[pid].label + '</span><b>' + s.correct + '/' + s.total + ' (' + pct100 + '%)</b></div><div class="rc-bar"><i style="width:' + pct100 + '%"></i></div></div>';
+    }).join('');
+    card.innerHTML = '<h2 style="margin-bottom:6px">Reading Final Score</h2><p class="sub">Single clean result block. Duplicate legacy Reading result cards are hidden in this version.</p><div class="rc-grid"><div class="rc-metric"><b>' + data.correct + '</b><span>Correct</span></div><div class="rc-metric"><b>' + data.total + '</b><span>Total Questions</span></div><div class="rc-metric"><b>CLB ' + data.band + '</b><span>Estimated Band</span></div><div class="rc-metric"><b>' + Math.round(data.pct*100) + '%</b><span>Score %</span></div></div>' + rows;
+    card.scrollIntoView({behavior:'smooth', block:'start'});
+    if (!state().completeRecorded && typeof window.recordScore === 'function') {
+      window.recordScore('reading', data.band);
+      state().completeRecorded = true;
+    }
+    markReadingCompleted();
+    return data;
+  }
+  function bindAnswerKeys(){
+    PARTS.forEach(function(pid){
+      var p = partEl(pid); if (!p) return;
+      var btn = q('.ak-reveal-btn', p);
+      if (!btn || btn.dataset.cleanBound === '1') return;
+      btn.dataset.cleanBound = '1';
+      btn.removeAttribute('onclick');
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        if (p.dataset.akSubmitted !== '1') return;
+        var open = p.dataset.akOpen === '1';
+        PARTS.forEach(function(other){ var po = partEl(other); if (po && other !== pid) po.dataset.akOpen = '0'; });
+        p.dataset.akOpen = open ? '0' : '1';
+      }, true);
+    });
+  }
+  function bindSubmitButtons(){
+    var map = {
+      rp1: byId('p1Submit'),
+      rp2: byId('rp2Submit'),
+      rp3: q('#rp3 .btn.btn-accent.btn-sm'),
+      rp4: q('#rp4 .btn.btn-accent.btn-sm')
+    };
+    Object.keys(map).forEach(function(pid){
+      var btn = map[pid];
+      if (!btn || btn.dataset.cleanSubmit === '1') return;
+      btn.dataset.cleanSubmit = '1';
+      btn.removeAttribute('onclick');
+      btn.onclick = null;
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        scorePart(pid);
+      }, true);
+    });
+  }
+  function bindFinish(){
+    var btn = byId('rp4FinishBtn');
+    if (!btn || btn.dataset.cleanFinish === '1') return;
+    btn.dataset.cleanFinish = '1';
+    btn.removeAttribute('onclick');
+    btn.onclick = null;
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      scoreAllParts();
+      renderCleanFinal();
+      return false;
+    }, true);
+  }
+  function overrideLegacy(){
+    window.unlockReadingAnswerKeys = function(){ return; };
+    window.showFinalReadingScore = function(){ scoreAllParts(); return renderCleanFinal(); };
+    window.scoreDropdowns = function(part){ return scorePart(part); };
+  }
+  function boot(){
+    overrideLegacy();
+    bindAnswerKeys();
+    bindSubmitButtons();
+    bindFinish();
+    hideLegacyReadingResults();
+  }
+  function wrap(name, after){
+    var orig = window[name];
+    if (typeof orig !== 'function' || orig.__readingCleanWrapped) return;
+    var wrapped = function(){ var out = orig.apply(this, arguments); setTimeout(after, 0); return out; };
+    wrapped.__readingCleanWrapped = true;
+    window[name] = wrapped;
+  }
+
+  wrap('switchReadPart', boot);
+  wrap('showOnlyReadPart', boot);
+  wrap('openTest', function(){ resetReading(); boot(); });
+  wrap('openSectionTest', function(){ resetReading(); boot(); });
+  wrap('startReading', function(){ resetReading(); boot(); });
+  wrap('startReadingTest', function(){ resetReading(); boot(); });
+  wrap('startReadingFromHardModal', function(){ resetReading(); boot(); });
+
+  window.resetReadingAnswerReveal = function(){ resetReading(); boot(); };
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ resetReading(); boot(); });
+  else { resetReading(); boot(); }
+})();
+</script>
+</body>
+</html>
